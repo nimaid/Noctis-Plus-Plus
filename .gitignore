@@ -2,11 +2,12 @@ data/CURRENT.BIN
 data/SURFACE.BIN
 data/GOESFILE.TXT
 
-modules/NOCTIS.EXE
-
 gallery/*
 movies/*
 source/BIN/*
+
+!gallery/SAMPLE.BMP
+!movies/readme.txt
 
 *.zip
 /bc.31
