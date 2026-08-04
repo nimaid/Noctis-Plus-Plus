@@ -3,6 +3,7 @@ This project is based on [Noctis IV Plus](https://github.com/jorisvddonk/Noctis-
 
 ![](gallery/SAMPLE.BMP)
 ![](gallery/SAMPLE0.BMP)
+![](gallery/SAMPLE1.BMP)
 
 ## Running Noctis++ On Modern Computers
 
