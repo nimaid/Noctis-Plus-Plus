@@ -3466,7 +3466,7 @@ void ShowMovieSetup(int moviefsec, char movieflashoff, int moviedeck) {
 		//}
 	}
 
-	wrouthud (14,132, NULL, "  NOCTIS IV+ MOVIEMAKER"); 				//The title. We do this at the end to allow colorings.
+	wrouthud (14,132, NULL, "  NOCTIS++ MOVIEMAKER"); 				//The title. We do this at the end to allow colorings.
 
 	/*if (movieexists == 2) {
 		wrouthud (10,80, NULL, "MOVIE EXISTS ALREADY");

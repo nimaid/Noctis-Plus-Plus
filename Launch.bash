@@ -6,9 +6,9 @@ CONF_FILE="$SCRIPT_DIR/dosbox.conf"
 MOUNT_DIR="$SCRIPT_DIR"
 
 echo
-echo "+------------------------------+"
-echo "| Noctis IV / IV Plus Launcher |"
-echo "+------------------------------+"
+echo "+-------------------+"
+echo "| Noctis++ Launcher |"
+echo "+-------------------+"
 echo
 
 function pause() {
@@ -41,16 +41,15 @@ else
     echo "Could not find conf file: \"$CONF_FILE\""
     echo
     echo "ERROR: Configuration file not found! Unable to launch!"
-    echo "Download here: https://github.com/jorisvddonk/Noctis-IV-Plus/raw/refs/heads/master/dosbox.conf"
+    echo "Download here: https://github.com/nimaid/Noctis-Plus-Plus/raw/refs/heads/main/dosbox.conf"
     echo
     prompt_exit
 fi
 
 if ! [[ -f "$MOUNT_DIR/modules/NOCTIS.EXE" ]]; then
     echo
-    echo "ERROR: Noctis IV / IV Plus not found! Unable to launch!"
-    echo "Download Noctis IV here: https://80.style/packs/zip/hsp/noctis_iv-noctis_iv_download_JmsLdos_onlyK"
-    echo "Download Noctis IV Plus from here: https://github.com/jorisvddonk/Noctis-IV-Plus/releases/latest"
+    echo "ERROR: Noctis++ not found! Unable to launch!"
+    echo "Download Noctis++ from here: https://github.com/nimaid/Noctis-Plus-Plus/releases/latest"
     echo
     prompt_exit
 fi

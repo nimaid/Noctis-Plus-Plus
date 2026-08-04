@@ -4561,7 +4561,7 @@ void planetary_main ()
                 wrouthud (14, 155, NULL, "DEFAULT BORDER                       (B)");
             }
             
-            wrouthud (14,132, NULL, "  NOCTIS IV+ VISUAL EFFECTS SETTINGS"); 				//The title. We do this at the end to allow colorings.
+            wrouthud (14,132, NULL, "  NOCTIS++ VISUAL EFFECTS SETTINGS"); 				//The title. We do this at the end to allow colorings.
         }
         
 		if (about) {	// F1 - about

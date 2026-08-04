@@ -4495,9 +4495,9 @@ void main ()
 void ShowAboutPage(char surface) {
 	areaclear(adapted, 5, 5, 315, 195, 0, 0, 0);
 	areaclear(adapted, 11, 10, 310, 32, 0, 0, 80);
-	wrouthud (14, 12, NULL, "                               NOCTIS IV PLUS");
-	wrouthud (14, 19, NULL, "                      BY MEGA, NEUZD, SL, AND OTHERS");
-	wrouthud (14, 26, NULL, "     MODIFIED VERSION OF NOCTIS - A PROGRAM MADE BY ALESSANDRO GHIGNOLA.");
+	wrouthud (14, 12, NULL,     "                                 NOCTIS++");
+	wrouthud (14, 19, NULL,     "                  BY NIMAID, MEGA, NEUZD, SL, AND OTHERS");
+	wrouthud (14, 26, NULL,     "    MODIFIED VERSION OF NOCTIS - A PROGRAM MADE BY ALESSANDRO GHIGNOLA.");
 	areaclear (adapted, 11, 35, 310, 44, 0, 0, 72);
 	areaclear (adapted, 11, 45, 310, 168, 0, 0, 112);
 	if (surface) {
@@ -4520,5 +4520,5 @@ void ShowAboutPage(char surface) {
 	if (charge<0) {
 		wrouthud (14,160, NULL, "           THIS STARDRIFTER IS EQUIPPED WITH THE OMEGA DRIVE       ");
 	}
-	wrouthud (14,180, NULL, "RELEASE 2.4");
+	wrouthud (14,180, NULL, "VERSION: ALPHA 0.1");
 }

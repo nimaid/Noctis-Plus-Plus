@@ -2,17 +2,17 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-NIVP_DIR="$( dirname "$SCRIPT_DIR" )"
+NPP_DIR="$( dirname "$SCRIPT_DIR" )"
 
-CONF_FILE="$NIVP_DIR/dosbox.conf"
-MOUNT_DIR="$NIVP_DIR"
+CONF_FILE="$NPP_DIR/dosbox.conf"
+MOUNT_DIR="$NPP_DIR"
 
 BCPP31_DIR="$MOUNT_DIR/bc.31"
 
 echo
-echo "+------------------------+"
-echo "| Noctis IV Plus Builder |"
-echo "+------------------------+"
+echo "+------------------+"
+echo "| Noctis++ Builder |"
+echo "+------------------+"
 echo
 
 function pause() {
@@ -45,16 +45,15 @@ else
     echo "Could not find conf file: \"$CONF_FILE\""
     echo
     echo "ERROR: Configuration file not found! Unable to launch!"
-    echo "Download here: https://github.com/jorisvddonk/Noctis-IV-Plus/raw/refs/heads/master/dosbox.conf"
+    echo "Download here: https://github.com/nimaid/Noctis-Plus-Plus/raw/refs/heads/main/dosbox.conf"
     echo
     prompt_exit
 fi
 
 if ! [[ -f "$MOUNT_DIR/source/compile.bat" ]]; then
     echo
-    echo "ERROR: Noctis IV / IV Plus not found! Unable to launch!"
-    echo "Download Noctis IV here: https://80.style/packs/zip/hsp/noctis_iv-noctis_iv_download_JmsLdos_onlyK"
-    echo "Download Noctis IV Plus from here: https://github.com/jorisvddonk/Noctis-IV-Plus/releases/latest"
+    echo "ERROR: Noctis++ not found! Unable to launch!"
+    echo "Download Noctis++ from here: https://github.com/nimaid/Noctis-Plus-Plus/releases/latest"
     echo
     prompt_exit
 fi

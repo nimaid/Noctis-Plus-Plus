@@ -1,12 +1,12 @@
 @echo off
 
 rem Change this to point to the installation directory for Borland C++ 3.1
-rem The N: drive is the Noctis-IV-Plus folder
+rem The N: drive is the Noctis-Plus-Plus folder
 set BCPP31_DIR=N:\bc.31
 
 
 
-echo Building Noctis IV Plus...
+echo Building Noctis++...
 
 rem Append Borland C++ 3.1 to the PATH
 set PATH=%PATH%;%BCPP31_DIR%\bin;%BCPP31_DIR%\INCLUDE
@@ -15,7 +15,7 @@ rem Ensure the 'bin' folder exists and is empty
 if exist bin\NUL deltree /Y bin
 mkdir bin
 
-rem Build Noctis IV using the make tool
+rem Build Noctis++ using the make tool
 make -fnoctis.mak -DALL=DEF_ALL -B
 
 rem Handle failure to build
@@ -37,10 +37,10 @@ del bin\noctis.exe
 echo Executable moved successfully!
 
 rem Pause before running
-echo Press any key to run Noctis IV Plus . . .
+echo Press any key to run Noctis++ . . .
 pause >nul
 
-rem Run Noctis IV
+rem Run Noctis++
 cd ..
 modules\noctis.exe
 cd ..
