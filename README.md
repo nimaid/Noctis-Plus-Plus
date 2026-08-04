@@ -2,6 +2,7 @@
 This project is based on [Noctis IV Plus](https://github.com/jorisvddonk/Noctis-IV-Plus) (a basic modification of Alessandro Ghignola's excellent [Noctis IV](https://80.style/#/hsp/noctis_iv/noctis_iv_download_JmsLdos_onlyK) space exploration simulator). It aims to add significant additional features and settings to augment the original gameplay without overtly modifying existing game systems. In addition, it aims to keep backwards-compatibility with the existing GUIDE and other community tools. Old Noctis GUIDE entries should be more-or-less still correct, but it is possible new features may be present, such as new lifeforms exclusive to Noctis++.
 
 ![](gallery/SAMPLE.BMP)
+![](gallery/SAMPLE0.BMP)
 
 ## Running Noctis++ On Modern Computers
 

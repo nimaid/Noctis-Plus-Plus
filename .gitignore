@@ -6,7 +6,7 @@ gallery/*
 movies/*
 source/BIN/*
 
-!gallery/SAMPLE.BMP
+!gallery/SAMPLE*.BMP
 !movies/readme.txt
 
 *.zip
