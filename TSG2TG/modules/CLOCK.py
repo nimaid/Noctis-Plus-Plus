@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import time
-from modules.feltime import feltime
+from feltime import feltime
 
 print("\033[H\033[2J", end="")
 
