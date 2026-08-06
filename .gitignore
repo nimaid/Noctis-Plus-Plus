@@ -12,3 +12,4 @@ source/BIN/*
 *.zip
 /bc.31
 /bin
+__pycache__/
