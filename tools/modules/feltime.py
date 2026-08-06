@@ -1,5 +1,8 @@
 import datetime
 
+DATETIME_EPOCH = datetime.datetime(year=1984, month=1, day=2, second=1)
+TIMESTAMP_EPOCH = 6011.0
+
 class feltime:
     def __init__(self, epoc, sinister, medius, dexter=0, fraction=0):
         self.epoc = epoc
@@ -30,7 +33,7 @@ class feltime:
     
     @classmethod
     def from_datetime(cls, dt):
-        epoc_raw = 6011 + ((dt - datetime.datetime(year=1984, month=1, day=2, second=1)).total_seconds() / 1e9)
+        epoc_raw = TIMESTAMP_EPOCH + ((dt - DATETIME_EPOCH).total_seconds() / 1e9)
     
         epoc, triad = f"{epoc_raw:.12f}".split(".")
         
@@ -43,6 +46,10 @@ class feltime:
         )
     
     @classmethod
+    def from_timestamp(cls, ts):
+        return cls.from_datetime(cls.to_datetime(cls, ts))
+    
+    @classmethod
     def now(cls):
         return cls.from_datetime(datetime.datetime.now())
     
@@ -53,8 +60,10 @@ class feltime:
     def timestamp(self):
         return self.epoc_raw * 1e9
     
-    def to_datetime(self):
-        return datetime.datetime(year=1984, month=1, day=2, second=1) + datetime.timedelta(seconds=(self.epoc_raw - 6011) * 1e9)
+    def to_datetime(self, epoc_raw=None):
+        if epoc_raw == None:
+            epoc_raw = self.epoc_raw
+        return DATETIME_EPOCH + datetime.timedelta(seconds=(epoc_raw - TIMESTAMP_EPOCH) * 1e9)
     
     def strftime(self, format):
         '''
