@@ -1,0 +1,9 @@
+name: tsg2tg
+channels:
+  - defaults
+dependencies:
+  - python=3.14*
+  - pip
+  - pip:
+    - Pillow
+    - PyQt5
