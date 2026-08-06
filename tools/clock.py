@@ -3,7 +3,7 @@
 import time
 from modules.feltime import feltime
 
-
+print("\033[H\033[2J", end="")
 
 print("\n     Felesian Clock")
 print(  " Press Ctrl+C to exit...")
