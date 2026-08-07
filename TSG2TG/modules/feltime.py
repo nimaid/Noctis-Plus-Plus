@@ -1,14 +1,41 @@
 import datetime
 
 DATETIME_EPOCH = datetime.datetime(year=1984, month=1, day=2, second=1)
-TIMESTAMP_EPOCH = 6011.0
+EPOC_EPOCH = 6011.0
+
+EPOC_MIN = 5949
+EPOC_MAX = 9999
 
 class feltime:
     def __init__(self, epoc, sinister, medius, dexter=0, fraction=0):
+        if not isinstance(epoc, int):
+            raise TypeError(f"'epoc must be an 'int', not a '{type(epoc).__name__}'")
+        if epoc not in range(EPOC_MIN, EPOC_MAX+1):
+            raise ValueError(f"'epoc must be between '{EPOC_MIN}' and '{EPOC_MAX}', not '{epoc}'")
         self.epoc = epoc
+        
+        if not isinstance(sinister, int):
+            raise TypeError(f"'sinister' must be an 'int', not a '{type(sinister).__name__}'")
+        if sinister not in range(0, 1000):
+            raise ValueError(f"'sinister' must be between '0' and '999', not '{sinister}'")
         self.sinister = sinister
+        
+        if not isinstance(medius, int):
+            raise TypeError(f"'medius' must be an 'int', not a '{type(medius).__name__}'")
+        if medius not in range(0, 1000):
+            raise ValueError(f"'medius' must be between '0' and '999', not '{medius}'")
         self.medius = medius
+        
+        if not isinstance(dexter, int):
+            raise TypeError(f"'dexter' must be an 'int', not a '{type(dexter).__name__}'")
+        if dexter not in range(0, 1000):
+            raise ValueError(f"'dexter' must be between '0' and '999', not '{dexter}'")
         self.dexter = dexter
+        
+        if not isinstance(fraction, int):
+            raise TypeError(f"'fraction' must be an 'int', not a '{type(fraction).__name__}'")
+        if fraction not in range(0, 1000):
+            raise ValueError(f"'fraction' must be between '0' and '999', not '{fraction}'")
         self.fraction = fraction
     
     def __repr__(self):
@@ -33,7 +60,10 @@ class feltime:
     
     @classmethod
     def from_datetime(cls, dt):
-        epoc_raw = TIMESTAMP_EPOCH + ((dt - DATETIME_EPOCH).total_seconds() / 1e9)
+        if not isinstance(dt, datetime.datetime):
+            raise TypeError(f"'dt' must be a 'datetime.datetime object', not a '{type(dt).__name__}'")
+        
+        epoc_raw = EPOC_EPOCH + ((dt - DATETIME_EPOCH).total_seconds() / 1e9)
     
         epoc, triad = f"{epoc_raw:.12f}".split(".")
         
@@ -47,6 +77,11 @@ class feltime:
     
     @classmethod
     def from_timestamp(cls, ts):
+        if not isinstance(ts, float) and not isinstance(ts, int):
+            raise TypeError(f"'ts' must be a 'float' or 'int', not a '{type(ts).__name__}'")
+        if ts not in range(EPOC_MIN, EPOC_MAX+1):
+            raise ValueError(f"'ts must be between '{EPOC_MIN}' and '{EPOC_MAX}', not '{ts}'")
+            
         return cls.from_datetime(cls.to_datetime(cls, ts))
     
     @classmethod
@@ -63,7 +98,10 @@ class feltime:
     def to_datetime(self, epoc_raw=None):
         if epoc_raw == None:
             epoc_raw = self.epoc_raw
-        return DATETIME_EPOCH + datetime.timedelta(seconds=(epoc_raw - TIMESTAMP_EPOCH) * 1e9)
+        if not isinstance(epoc_raw, float) and not isinstance(epoc_raw, int):
+            raise TypeError(f"'epoc_raw' must be a 'float' or 'int', not a '{type(epoc_raw).__name__}'")
+        
+        return DATETIME_EPOCH + datetime.timedelta(seconds=(epoc_raw - EPOC_EPOCH) * 1e9)
     
     def strftime(self, format):
         '''
@@ -80,6 +118,9 @@ class feltime:
         %c = complete timestamp (EEEE:SSS.MMM.DDD)
         %% = % (escaped)
         '''
+        if not isinstance(format, str):
+            raise TypeError(f"'format' must be a 'str', not a '{type(epoc_raw).__name__}'")
+        
         out_string = ""
         i = 0
         while i < len(format):
