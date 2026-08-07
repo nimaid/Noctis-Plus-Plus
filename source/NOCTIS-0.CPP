@@ -3954,8 +3954,8 @@ void getsecs ()
 		fps = 1;
 	}
 	else {					      // frazioni di secondo
-		if (gl_fps) secs += (double)fps / (double)gl_fps;
 		fsecs = (double)fps / (double)gl_fps;
+        secs += fsecs;
 		fps++;
 	}
 
