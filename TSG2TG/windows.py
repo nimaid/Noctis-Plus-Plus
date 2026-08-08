@@ -33,6 +33,7 @@ class MyQMainWindow(QMainWindow):
         # Declare variables
         self.padding_px = 10
         self.clock_padding_px = 5
+        self.button_padding_px = 10
         self.clock_font_size = 16
         self.button_font_size = 12
 
@@ -84,10 +85,25 @@ class MyQMainWindow(QMainWindow):
         self.button_font.setBold(True)
         
         # Declare buttons
+        self.submit_button = QPushButton("SUBMIT\nOUTBOX")
+        
+        self.chat_button = QPushButton("LIVE\nCHAT")
+        
+        self.map_button = QPushButton("VIEW\nMAP")
+        
+        self.movie_converter_button = QPushButton("MOVIE\nCONVERTER")
+        
+        self.screenshot_converter_button = QPushButton("SCREENSHOT\nCONVERTER")
+        
         self.converter_calculator_button = QPushButton("CONVERTER\nCALCULATOR")
-        self.converter_calculator_button.setFont(self.button_font)
         self.converter_calculator_button.clicked.connect(self.converter_calculator)
-         
+        
+        self.build_button = QPushButton("BUILD\nNOCTIS++")
+        
+        self.update_button = QPushButton("UPD. GUIDE\nAND STARMAP")
+        
+        self.launch_button = QPushButton("LAUNCH\nNOCTIS++")   
+        
         # Declare button area
         self.button_area = QGridLayout()
         self.button_area.setContentsMargins(self.padding_px, 0, self.padding_px, 0)
@@ -96,14 +112,30 @@ class MyQMainWindow(QMainWindow):
         # Populate button area
         self.entries_array = [
             [
+                self.submit_button,
+                self.chat_button,
+                self.map_button,
+            ],
+            [
+                self.movie_converter_button,
+                self.screenshot_converter_button,
                 self.converter_calculator_button,
             ],
+            [
+                self.build_button,
+                self.update_button,
+                self.launch_button,
+            ],
         ]
-        for column, column_item in enumerate(self.entries_array):
-            for row, row_item in enumerate(column_item):
-                if row_item is not None:
+        for row, row_item in enumerate(self.entries_array):
+            for column, column_item in enumerate(row_item):
+                if column_item is not None:
+                    if isinstance(column_item, QPushButton):
+                        column_item.setFont(self.button_font)
+                        column_item.setStyleSheet(f"QPushButton {{ padding: {self.button_padding_px}px; }}")
+                    
                     self.button_area.addWidget(
-                        row_item,
+                        column_item,
                         row,
                         column,
                         alignment=Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter
@@ -122,16 +154,6 @@ class MyQMainWindow(QMainWindow):
         self.main_widget = QWidget()
         self.main_widget.setLayout(self.main_layout)
         self.setCentralWidget(self.main_widget)
-
-        # Finally, set the window size based on it's sizeHint after 10 millis
-        #QTimer.singleShot(10, self.setup_window_size)
-
-    def setup_window_size(self):
-        size_hint = self.sizeHint()
-        start_size = QSize(size_hint.width(), size_hint.height() * 3)
-        min_size = QSize(size_hint.width(), size_hint.height() * 2)
-        self.setMinimumSize(min_size)
-        self.resize(start_size)
     
     def update_clock(self):
         self.clock.setText(feltime.feltime.now().strftime("EPOC %c"))
@@ -169,18 +191,10 @@ class ConverterCalculator(QDialog):
         
         # Populate main layout
         self.main_layout.addWidget(self.test, 0, 0)
-
+        
+        # Set the layout
         self.setLayout(self.main_layout)
         
-        # Finally, set the window size based on it's sizeHint after 10 millis
-        #QTimer.singleShot(10, self.setup_window_size)
-
-    def setup_window_size(self):
-        size_hint = self.sizeHint()
-        start_size = QSize(size_hint.width(), size_hint.height() * 3)
-        min_size = QSize(size_hint.width(), size_hint.height() * 2)
-        self.setMinimumSize(min_size)
-        self.resize(start_size)
     
     def closeEvent(self, event):
         self.parent().converter_calculator_button.setEnabled(True)
