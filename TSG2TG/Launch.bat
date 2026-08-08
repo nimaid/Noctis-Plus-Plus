@@ -14,13 +14,12 @@ echo ^| TSG2TG Launcher ^|
 echo ^+-----------------^+
 echo.
 
-echo Testing for conda installation...
 where conda >nul 2>nul
 if %errorlevel% neq 0 (
-    echo Could not find "conda".
+    echo Could not find a conda installation!
     echo.
     echo ERROR: No conda installation found! Unable to launch!
-    echo Download a Conda distribution from here: https://www.anaconda.com/download/success
+    echo Download Miniconda from here: https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
     echo.
     <nul set /p "=Press any key to exit . . . "
     pause >nul
@@ -38,7 +37,6 @@ set CONDA_PATH=%CONDA_PATH:~0,-1%
 set CONDA_PYTHON=%CONDA_PATH%\envs\%CONDA_ENV%\pythonw.exe
 
 echo.
-echo Looking for conda environment...
 if not exist "%CONDA_PYTHON%" (
     echo Could not find the conda environment "%CONDA_ENV%", installing it...
     echo.
