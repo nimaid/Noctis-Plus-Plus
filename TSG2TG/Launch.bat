@@ -13,6 +13,22 @@ echo ^| TSG2TG Launcher ^|
 echo ^+-----------------^+
 echo.
 
+echo Testing for conda installation...
+where conda >nul 2>nul
+if %errorlevel% neq 0 (
+    echo Could not find "conda".
+    echo.
+    echo ERROR: No conda installation found! Unable to launch!
+    echo Download a Conda distribution from here: https://www.anaconda.com/download/success
+    echo.
+    <nul set /p "=Press any key to exit . . . "
+    pause >nul
+    exit /b
+) else (
+    echo Conda installation found!
+)
+
+echo.
 echo Looking for conda environment...
 conda env list | findstr /R /C:"\<%CONDA_ENV%\>" >nul
 if %errorlevel% neq 0 (
