@@ -124,7 +124,7 @@ class MyQMainWindow(QMainWindow):
         # Set main layout as the central widget
         self.main_widget = QWidget()
         self.main_widget.setLayout(self.main_layout)
-        self.setCentralWidget(self.main_widget)    
+        self.setCentralWidget(self.main_widget)
 
         # Finally, set the window size based on it's sizeHint after 10 millis
         #QTimer.singleShot(10, self.setup_window_size)
@@ -150,8 +150,7 @@ class MyQMainWindow(QMainWindow):
             self.converter_calculator_open = True
             popup = ConverterCalculator(parent=self)
             result = popup.show()
-            
-    
+
 
 # ---- POPUP WINDOWS ----
 
