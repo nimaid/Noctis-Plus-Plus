@@ -3,6 +3,8 @@
 set SCRIPT_DIR=%~dp0
 set SCRIPT_DIR=%SCRIPT_DIR:~0,-1%
 
+set PY_FILE=%SCRIPT_DIR%\TSGT2G.pyw
+
 set CONDA_ENV=tsg2tg
 
 echo.
@@ -26,7 +28,7 @@ if %errorlevel% neq 0 (
 
 echo.
 echo Launching TSG2TG...
-start /b conda run -n %CONDA_ENV% pythonw TSGT2G.pyw
+start "" /b conda run -n %CONDA_ENV% pythonw "%PY_FILE%"
 echo Launched!
 echo.
 echo You can safely close this window now.
