@@ -35,13 +35,13 @@ class MyQMainWindow(QMainWindow):
         self.clock_padding_px = 5
         self.button_padding_px = 10
         self.clock_font_size = 16
-        self.button_font_size = 12
+        self.button_scale = 3.0
 
         # Make main settings object
         self.settings = settings.Settings()
 
         # Set main window size restrictions
-        self.setMinimumSize(400, 300)
+        self.setFixedSize(500, 350)
         
         # Declare clock elements
         self.clock = QLabel()
@@ -80,29 +80,137 @@ class MyQMainWindow(QMainWindow):
         self.clock_timer.timeout.connect(self.update_clock)
         self.clock_timer.start(250)  # Update 4x a second to keep it as close to synced as possible
         
-        # Declare button font
-        self.button_font = QFont("Courier New", self.button_font_size)
-        self.button_font.setBold(True)
+        # Declare button icons
+        BUTTON_ICONS = {
+            "build": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["build"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["build"]["down"]),
+            },
+            "calculator": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["calculator"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["calculator"]["down"]),
+            },
+            "chat": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["chat"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["chat"]["down"]),
+            },
+            "launch": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["launch"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["launch"]["down"]),
+            },
+            "map": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["map"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["map"]["down"]),
+            },
+            "movie": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["movie"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["movie"]["down"]),
+            },
+            "submit": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["submit"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["submit"]["down"]),
+            },
+            "screenshot": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["screenshot"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["screenshot"]["down"]),
+            },
+            "update": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["update"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["update"]["down"]),
+            },
+        }
         
         # Declare buttons
-        self.submit_button = QPushButton("SUBMIT\nOUTBOX")
+        self.submit_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["submit"]["up"],
+            pixmap_hover=BUTTON_ICONS["submit"]["up"],
+            pixmap_pressed=BUTTON_ICONS["submit"]["down"],
+            scale=self.button_scale,
+            parent=self
+        )
+        self.submit_button.setFocusPolicy(Qt.NoFocus)
+        self.submit_button.setFixedSize(self.submit_button.width, self.submit_button.height)
         
-        self.chat_button = QPushButton("LIVE\nCHAT")
+        self.chat_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["chat"]["up"],
+            pixmap_hover=BUTTON_ICONS["chat"]["up"],
+            pixmap_pressed=BUTTON_ICONS["chat"]["down"],
+            scale=self.button_scale,
+            parent=self
+        )
+        self.chat_button.setFocusPolicy(Qt.NoFocus)
+        self.chat_button.setFixedSize(self.chat_button.width, self.chat_button.height)
         
-        self.map_button = QPushButton("VIEW\nMAP")
+        self.map_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["map"]["up"],
+            pixmap_hover=BUTTON_ICONS["map"]["up"],
+            pixmap_pressed=BUTTON_ICONS["map"]["down"],
+            scale=self.button_scale,
+            parent=self
+        )
+        self.map_button.setFocusPolicy(Qt.NoFocus)
+        self.map_button.setFixedSize(self.map_button.width, self.map_button.height)
         
-        self.movie_converter_button = QPushButton("MOVIE\nCONVERTER")
+        self.movie_converter_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["movie"]["up"],
+            pixmap_hover=BUTTON_ICONS["movie"]["up"],
+            pixmap_pressed=BUTTON_ICONS["movie"]["down"],
+            scale=self.button_scale,
+            parent=self
+        )
+        self.movie_converter_button.setFocusPolicy(Qt.NoFocus)
+        self.movie_converter_button.setFixedSize(self.movie_converter_button.width, self.movie_converter_button.height)
         
-        self.screenshot_converter_button = QPushButton("SCREENSHOT\nCONVERTER")
+        self.screenshot_converter_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["screenshot"]["up"],
+            pixmap_hover=BUTTON_ICONS["screenshot"]["up"],
+            pixmap_pressed=BUTTON_ICONS["screenshot"]["down"],
+            scale=self.button_scale,
+            parent=self
+        )
+        self.screenshot_converter_button.setFocusPolicy(Qt.NoFocus)
+        self.screenshot_converter_button.setFixedSize(self.screenshot_converter_button.width, self.screenshot_converter_button.height)
         
-        self.converter_calculator_button = QPushButton("CONVERTER\nCALCULATOR")
-        self.converter_calculator_button.clicked.connect(self.converter_calculator)
+        self.converter_calculator_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["calculator"]["up"],
+            pixmap_hover=BUTTON_ICONS["calculator"]["up"],
+            pixmap_pressed=BUTTON_ICONS["calculator"]["down"],
+            scale=self.button_scale,
+            parent=self
+        )
+        self.converter_calculator_button.setFocusPolicy(Qt.NoFocus)
+        self.converter_calculator_button.setFixedSize(self.converter_calculator_button.width, self.converter_calculator_button.height)
+        self.converter_calculator_button.pressed.connect(self.converter_calculator)
         
-        self.build_button = QPushButton("BUILD\nNOCTIS++")
+        self.build_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["build"]["up"],
+            pixmap_hover=BUTTON_ICONS["build"]["up"],
+            pixmap_pressed=BUTTON_ICONS["build"]["down"],
+            scale=self.button_scale,
+            parent=self
+        )
+        self.build_button.setFocusPolicy(Qt.NoFocus)
+        self.build_button.setFixedSize(self.build_button.width, self.build_button.height)
         
-        self.update_button = QPushButton("UPD. GUIDE\nAND STARMAP")
+        self.update_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["update"]["up"],
+            pixmap_hover=BUTTON_ICONS["update"]["up"],
+            pixmap_pressed=BUTTON_ICONS["update"]["down"],
+            scale=self.button_scale,
+            parent=self
+        )
+        self.update_button.setFocusPolicy(Qt.NoFocus)
+        self.update_button.setFixedSize(self.update_button.width, self.update_button.height)
         
-        self.launch_button = QPushButton("LAUNCH\nNOCTIS++")   
+        self.launch_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["launch"]["up"],
+            pixmap_hover=BUTTON_ICONS["launch"]["up"],
+            pixmap_pressed=BUTTON_ICONS["launch"]["down"],
+            scale=self.button_scale,
+            parent=self
+        )
+        self.launch_button.setFocusPolicy(Qt.NoFocus)
+        self.launch_button.setFixedSize(self.launch_button.width, self.launch_button.height)
         
         # Declare button area
         self.button_area = QGridLayout()
@@ -130,10 +238,6 @@ class MyQMainWindow(QMainWindow):
         for row, row_item in enumerate(self.entries_array):
             for column, column_item in enumerate(row_item):
                 if column_item is not None:
-                    if isinstance(column_item, QPushButton):
-                        column_item.setFont(self.button_font)
-                        column_item.setStyleSheet(f"QPushButton {{ padding: {self.button_padding_px}px; }}")
-                    
                     self.button_area.addWidget(
                         column_item,
                         row,
@@ -160,6 +264,7 @@ class MyQMainWindow(QMainWindow):
     
     def converter_calculator(self):
         self.converter_calculator_button.setEnabled(False)
+        self.converter_calculator_button.setDown(True)
         popup = ConverterCalculator(parent=self)
         result = popup.show()
 
@@ -197,5 +302,6 @@ class ConverterCalculator(QDialog):
         
     
     def closeEvent(self, event):
+        self.parent().converter_calculator_button.setDown(False)
         self.parent().converter_calculator_button.setEnabled(True)
         event.accept()

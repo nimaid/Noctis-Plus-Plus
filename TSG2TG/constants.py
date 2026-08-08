@@ -46,3 +46,41 @@ COLORS = {
 PATH = os.path.dirname(Path(__file__).resolve())
 RESOURCE_PATH = os.path.join(PATH, "resources")
 ICON_PATH = os.path.join(RESOURCE_PATH, "icon.png")
+BUTTON_ICON_PATHS = {
+    "build": {
+        "up": os.path.join(RESOURCE_PATH, "button_build_up.png"),
+        "down": os.path.join(RESOURCE_PATH, "button_build_down.png"),
+    },
+    "calculator": {
+        "up": os.path.join(RESOURCE_PATH, "button_calc_up.png"),
+        "down": os.path.join(RESOURCE_PATH, "button_calc_down.png"),
+    },
+    "chat": {
+        "up": os.path.join(RESOURCE_PATH, "button_chat_up.png"),
+        "down": os.path.join(RESOURCE_PATH, "button_chat_down.png"),
+    },
+    "launch": {
+        "up": os.path.join(RESOURCE_PATH, "button_launch_up.png"),
+        "down": os.path.join(RESOURCE_PATH, "button_launch_down.png"),
+    },
+    "map": {
+        "up": os.path.join(RESOURCE_PATH, "button_map_up.png"),
+        "down": os.path.join(RESOURCE_PATH, "button_map_down.png"),
+    },
+    "movie": {
+        "up": os.path.join(RESOURCE_PATH, "button_movie_up.png"),
+        "down": os.path.join(RESOURCE_PATH, "button_movie_down.png"),
+    },
+    "submit": {
+        "up": os.path.join(RESOURCE_PATH, "button_outbox_up.png"),
+        "down": os.path.join(RESOURCE_PATH, "button_outbox_down.png"),
+    },
+    "screenshot": {
+        "up": os.path.join(RESOURCE_PATH, "button_screenshot_up.png"),
+        "down": os.path.join(RESOURCE_PATH, "button_screenshot_down.png"),
+    },
+    "update": {
+        "up": os.path.join(RESOURCE_PATH, "button_update_up.png"),
+        "down": os.path.join(RESOURCE_PATH, "button_update_down.png"),
+    },
+}
