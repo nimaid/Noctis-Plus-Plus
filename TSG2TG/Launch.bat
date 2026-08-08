@@ -41,7 +41,7 @@ if %errorlevel% neq 0 (
     
     echo Conda enviroment is ready!
 ) else (
-    echo Found conda environment: "%CONDA_ENV%"
+    echo Found conda environment!
 )
 
 
