@@ -90,4 +90,4 @@ if not exist "%BCPP31_DIR%\BIN\MAKE.EXE" (
 
 echo.
 echo Launching Noctis IV...
-start /b "%DOSBOX_X_BIN%" -c "mount n \"%MOUNT_DIR%\"" -c "n:" -c "cd source" -c "compile.bat" -conf "%CONF_FILE%" -exit
+start "" /b "%DOSBOX_X_BIN%" -c "mount n \"%MOUNT_DIR%\"" -c "n:" -c "cd source" -c "compile.bat" -conf "%CONF_FILE%" -exit
