@@ -35,9 +35,6 @@ class MyQMainWindow(QMainWindow):
         self.clock_padding_px = 5
         self.clock_font_size = 16
         self.button_font_size = 12
-        
-        # Declare open windows
-        self.converter_calculator_open = False
 
         # Make main settings object
         self.settings = settings.Settings()
@@ -136,20 +133,13 @@ class MyQMainWindow(QMainWindow):
         self.setMinimumSize(min_size)
         self.resize(start_size)
     
-    def closeEvent(self, event):
-        if self.converter_calculator_open:
-            event.ignore()
-        else:
-            event.accept()
-    
     def update_clock(self):
         self.clock.setText(feltime.feltime.now().strftime("EPOC %c"))
     
     def converter_calculator(self):
-        if not self.converter_calculator_open:
-            self.converter_calculator_open = True
-            popup = ConverterCalculator(parent=self)
-            result = popup.show()
+        self.converter_calculator_button.setEnabled(False)
+        popup = ConverterCalculator(parent=self)
+        result = popup.show()
 
 
 # ---- POPUP WINDOWS ----
@@ -193,5 +183,5 @@ class ConverterCalculator(QDialog):
         self.resize(start_size)
     
     def closeEvent(self, event):
-        self.parent().converter_calculator_open = False
+        self.parent().converter_calculator_button.setEnabled(True)
         event.accept()
