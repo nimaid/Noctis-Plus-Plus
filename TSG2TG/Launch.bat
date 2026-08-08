@@ -29,10 +29,17 @@ if %errorlevel% neq 0 (
     echo Conda installation found!
 )
 
+for /f "delims=" %%i in ('where conda') do set "CONDA_PATH=%%i"
+for %%A in ("%CONDA_PATH%") do set "CONDA_PATH=%%~dpA"
+set CONDA_PATH=%CONDA_PATH:~0,-1%
+for %%A in ("%CONDA_PATH%") do set "CONDA_PATH=%%~dpA"
+set CONDA_PATH=%CONDA_PATH:~0,-1%
+
+set CONDA_PYTHON=%CONDA_PATH%\envs\%CONDA_ENV%\pythonw.exe
+
 echo.
 echo Looking for conda environment...
-conda env list | findstr /R /C:"\<%CONDA_ENV%\>" >nul
-if %errorlevel% neq 0 (
+if not exist "%CONDA_PYTHON%" (
     echo Could not find the conda environment "%CONDA_ENV%", installing it...
     echo.
     
@@ -48,7 +55,4 @@ if %errorlevel% neq 0 (
 
 echo.
 echo Launching TSG2TG...
-start "" /b conda run -n %CONDA_ENV% pythonw "%PY_FILE%"
-echo Launched!
-echo.
-echo You can safely close this window now.
+start "" /b "%CONDA_PYTHON%" "%PY_FILE%"
