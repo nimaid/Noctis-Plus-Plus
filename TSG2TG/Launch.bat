@@ -36,7 +36,7 @@ if %errorlevel% neq 0 (
     echo Could not find the conda environment "%CONDA_ENV%", installing it...
     echo.
     
-    conda env create -f "%ENV_FILE%"
+    call conda env create -f "%ENV_FILE%"
     echo.
     
     echo Conda enviroment is ready!
