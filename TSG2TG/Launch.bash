@@ -1,0 +1,58 @@
+#!/bin/bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+PY_FILE="$SCRIPT_DIR/TSGT2G.pyw"
+ENV_FILE="$SCRIPT_DIR/environment.yml"
+
+CONDA_ENV="tsg2tg"
+
+echo
+echo "+-----------------+"
+echo "| TSG2TG Launcher |"
+echo "+-----------------+"
+echo
+
+function pause() {
+    local MESSAGE="${1:-"Press any key to continue . . ."}"
+    read -n 1 -s -r -p "$MESSAGE"
+    echo
+}
+
+function prompt_exit() {
+    pause "Press any key to exit . . ."
+    exit
+}
+
+if ! command -v conda > /dev/null 2>&1; then
+    echo "Could not find a conda installation!"
+    echo
+    echo "ERROR: No conda installation found! Unable to launch!"
+    echo "Download Miniconda from here: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+    echo
+    prompt_exit
+else
+    echo "Conda installation found!"
+fi
+
+CONDA_PATH="$(dirname $(dirname $(which conda)))"
+CONDA_PYTHON="$CONDA_PATH/envs/$CONDA_ENV/bin/python"
+
+echo
+if ! [[ -f "$CONDA_PYTHON" ]]; then
+    echo "Could not find the conda environment \"$CONDA_ENV\", installing it..."
+    echo
+    
+    conda env create -f "$ENV_FILE"
+    echo
+    
+    echo "Conda enviroment is ready!"
+else
+    echo "Found conda environment!"
+fi
+
+
+
+echo
+echo "Launching TSG2TG..."
+"$CONDA_PYTHON" "$PY_FILE" &
