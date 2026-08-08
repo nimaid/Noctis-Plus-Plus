@@ -39,7 +39,7 @@ class feltime:
         self.fraction = fraction
     
     def __repr__(self):
-        return self.strftime("feltime(%e, %s, %m, %d, %f)")
+        return self.strftime("feltime.feltime(%e, %s, %m, %d, %f)")
     
     def __str__(self):
         return self.strftime("%e:%S.%M.%D")
@@ -48,7 +48,7 @@ class feltime:
         if isinstance(other, datetime.timedelta):
             return self.from_datetime(self.to_datetime() + other)
         else:
-            raise TypeError(f"unsupported operand type(s) for +: 'feltime' and '{type(other).__name__}'")
+            raise TypeError(f"unsupported operand type(s) for +: 'feltime.feltime' and '{type(other).__name__}'")
     
     def __sub__(self, other):
         if isinstance(other, feltime):
@@ -56,7 +56,7 @@ class feltime:
         elif isinstance(other, datetime.timedelta) or isinstance(other, datetime.datetime):
             return self.from_datetime(self.to_datetime() - other)
         else:
-            raise TypeError(f"unsupported operand type(s) for -: 'feltime' and '{type(other).__name__}'")
+            raise TypeError(f"unsupported operand type(s) for -: 'feltime.feltime' and '{type(other).__name__}'")
     
     @classmethod
     def from_datetime(cls, dt):
