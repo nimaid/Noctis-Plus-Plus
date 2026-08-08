@@ -4,6 +4,7 @@ set SCRIPT_DIR=%~dp0
 set SCRIPT_DIR=%SCRIPT_DIR:~0,-1%
 
 set PY_FILE=%SCRIPT_DIR%\TSGT2G.pyw
+set ENV_FILE=%SCRIPT_DIR%\environment.yml
 
 set CONDA_ENV=tsg2tg
 
@@ -35,7 +36,10 @@ if %errorlevel% neq 0 (
     echo Could not find the conda environment "%CONDA_ENV%", installing it...
     echo.
     
-    conda env create -f environment.yml
+    conda env create -f "%ENV_FILE%"
+    echo.
+    
+    echo Conda enviroment is ready!
 ) else (
     echo Found conda environment: "%CONDA_ENV%"
 )
