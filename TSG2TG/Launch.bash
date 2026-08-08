@@ -73,4 +73,4 @@ fi
 echo
 echo "Launching TSG2TG..."
 nohup "$CONDA_PYTHON" "$PY_FILE" >/dev/null 2>&1 &
-prompt_exit
+sleep 1
