@@ -1,6 +1,6 @@
 import datetime
 
-DATETIME_EPOCH = datetime.datetime(year=1984, month=1, day=2, second=1)
+DATETIME_EPOCH = datetime.datetime(year=1984, month=1, day=2)
 EPOC_EPOCH = 6011.0
 
 EPOC_MIN = 5949
