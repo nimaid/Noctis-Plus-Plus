@@ -53,4 +53,4 @@ if not exist "%CONDA_PYTHON%" (
 
 echo.
 echo Launching TSG2TG...
-start "" /b "%CONDA_PYTHON%" "%PY_FILE%"
+start "" /b "%CONDA_PYTHON%" "%PY_FILE%" >nul 2>nul

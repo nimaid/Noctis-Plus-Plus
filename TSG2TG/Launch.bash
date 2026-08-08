@@ -55,4 +55,4 @@ fi
 
 echo
 echo "Launching TSG2TG..."
-"$CONDA_PYTHON" "$PY_FILE" &
+"$CONDA_PYTHON" "$PY_FILE" >/dev/null 2>&1 &
