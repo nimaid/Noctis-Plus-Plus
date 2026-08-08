@@ -1,6 +1,7 @@
 import os
 import sys
 from enum import Enum
+from pathlib import Path
 
 TITLE = "The Stardrifter's GUIDE to the Galaxy"
 
@@ -37,11 +38,11 @@ COLORS = {
     "link": "#dddddd",
     "disabled": "#555555",
     "disabled_text": "#888888",
-    "status_background": "#2b2d30",
-    "status_text": "#9a9ba2",
+    "clock_background": "#2b2d30",
+    "clock_text": "#9a9ba2",
 }
 
 # Define paths
-PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+PATH = os.path.dirname(Path(__file__).resolve())
 RESOURCE_PATH = os.path.join(PATH, "resources")
 ICON_PATH = os.path.join(RESOURCE_PATH, "icon.png")

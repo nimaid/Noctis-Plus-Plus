@@ -18,6 +18,38 @@ class MainWindow:
         # Make main objects
         self.app = QApplication(qt_args)
         self.window = windows.MyQMainWindow()
+        
+        # Setup colors
+        self.app.setStyle("fusion")
+        self.palette = QPalette()
+        self.palette.setColor(QPalette.Window, QColor(constants.COLORS["background"]))
+        self.palette.setColor(QPalette.WindowText, QColor(constants.COLORS["text"]))
+        self.palette.setColor(QPalette.Base, QColor(constants.COLORS["foreground"]))
+        self.palette.setColor(QPalette.AlternateBase, QColor(constants.COLORS["foreground"]))
+        self.palette.setColor(QPalette.ToolTipBase, Qt.black)
+        self.palette.setColor(QPalette.ToolTipText, Qt.white)
+        self.palette.setColor(QPalette.Text, Qt.white)
+        self.palette.setColor(QPalette.Button, QColor(constants.COLORS["foreground"]))
+        self.palette.setColor(QPalette.ButtonText, QColor(constants.COLORS["button-text"]))
+        self.palette.setColor(QPalette.BrightText, Qt.red)
+        self.palette.setColor(QPalette.Link, QColor(constants.COLORS["link"]))
+        self.palette.setColor(QPalette.Highlight, QColor(constants.COLORS["link"]))
+        self.palette.setColor(QPalette.HighlightedText, Qt.black)
+
+        self.palette.setColorGroup(
+            QPalette.Disabled,
+            self.palette.windowText(),
+            QColor(constants.COLORS["disabled"]),
+            self.palette.light(),
+            self.palette.dark(),
+            self.palette.mid(),
+            QColor(constants.COLORS["disabled_text"]),
+            self.palette.brightText(),
+            QColor(constants.COLORS["disabled"]),
+            self.palette.window()
+        )
+
+        self.app.setPalette(self.palette)
 
     def run(self):
         self.window.show()
