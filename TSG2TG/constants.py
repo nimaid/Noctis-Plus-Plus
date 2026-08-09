@@ -77,17 +77,13 @@ BUTTON_ICON_PATHS = {
         "up": os.path.join(RESOURCE_PATH, "button_map_up.png"),
         "down": os.path.join(RESOURCE_PATH, "button_map_down.png"),
     },
-    "movie": {
-        "up": os.path.join(RESOURCE_PATH, "button_movie_up.png"),
-        "down": os.path.join(RESOURCE_PATH, "button_movie_down.png"),
+    "media": {
+        "up": os.path.join(RESOURCE_PATH, "button_media_up.png"),
+        "down": os.path.join(RESOURCE_PATH, "button_media_down.png"),
     },
     "submit": {
         "up": os.path.join(RESOURCE_PATH, "button_outbox_up.png"),
         "down": os.path.join(RESOURCE_PATH, "button_outbox_down.png"),
-    },
-    "screenshot": {
-        "up": os.path.join(RESOURCE_PATH, "button_screenshot_up.png"),
-        "down": os.path.join(RESOURCE_PATH, "button_screenshot_down.png"),
     },
     "update": {
         "up": os.path.join(RESOURCE_PATH, "button_update_up.png"),

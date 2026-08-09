@@ -102,17 +102,13 @@ class MyQMainWindow(QMainWindow):
                 "up": QPixmap(constants.BUTTON_ICON_PATHS["map"]["up"]),
                 "down": QPixmap(constants.BUTTON_ICON_PATHS["map"]["down"]),
             },
-            "movie": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["movie"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["movie"]["down"]),
+            "media": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["media"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["media"]["down"]),
             },
             "submit": {
                 "up": QPixmap(constants.BUTTON_ICON_PATHS["submit"]["up"]),
                 "down": QPixmap(constants.BUTTON_ICON_PATHS["submit"]["down"]),
-            },
-            "screenshot": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["screenshot"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["screenshot"]["down"]),
             },
             "update": {
                 "up": QPixmap(constants.BUTTON_ICON_PATHS["update"]["up"]),
@@ -154,27 +150,16 @@ class MyQMainWindow(QMainWindow):
         self.map_button.setFixedSize(self.map_button.width, self.map_button.height)
         self.map_button.pressed.connect(self.map)
         
-        self.movie_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["movie"]["up"],
-            pixmap_hover=BUTTON_ICONS["movie"]["up"],
-            pixmap_pressed=BUTTON_ICONS["movie"]["down"],
+        self.media_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["media"]["up"],
+            pixmap_hover=BUTTON_ICONS["media"]["up"],
+            pixmap_pressed=BUTTON_ICONS["media"]["down"],
             scale=self.button_scale,
             parent=self
         )
-        self.movie_button.setFocusPolicy(Qt.NoFocus)
-        self.movie_button.setFixedSize(self.movie_button.width, self.movie_button.height)
-        self.movie_button.pressed.connect(self.movie)
-        
-        self.screenshot_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["screenshot"]["up"],
-            pixmap_hover=BUTTON_ICONS["screenshot"]["up"],
-            pixmap_pressed=BUTTON_ICONS["screenshot"]["down"],
-            scale=self.button_scale,
-            parent=self
-        )
-        self.screenshot_button.setFocusPolicy(Qt.NoFocus)
-        self.screenshot_button.setFixedSize(self.screenshot_button.width, self.screenshot_button.height)
-        self.screenshot_button.pressed.connect(self.screenshot)
+        self.media_button.setFocusPolicy(Qt.NoFocus)
+        self.media_button.setFixedSize(self.media_button.width, self.media_button.height)
+        self.media_button.pressed.connect(self.media)
         
         self.calculator_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["calculator"]["up"],
@@ -233,8 +218,8 @@ class MyQMainWindow(QMainWindow):
                 self.map_button,
             ],
             [
-                self.movie_button,
-                self.screenshot_button,
+                self.media_button,
+                None,
                 self.calculator_button,
             ],
             [
@@ -337,19 +322,11 @@ class MyQMainWindow(QMainWindow):
         self.position_popup(popup, constants.HorizontalAlign.RIGHT, constants.VerticalAlign.TOP)
         result = popup.show()
     
-    def movie(self):
-        self.movie_button.setEnabled(False)
-        self.movie_button.setDown(True)
+    def media(self):
+        self.media_button.setEnabled(False)
+        self.media_button.setDown(True)
         
-        popup = Movie(parent=self)
-        self.position_popup(popup, constants.HorizontalAlign.LEFT, constants.VerticalAlign.CENTER)
-        result = popup.show()
-    
-    def screenshot(self):
-        self.screenshot_button.setEnabled(False)
-        self.screenshot_button.setDown(True)
-        
-        popup = Screenshot(parent=self)
+        popup = Media(parent=self)
         self.position_popup(popup, constants.HorizontalAlign.LEFT, constants.VerticalAlign.CENTER)
         result = popup.show()
     
@@ -499,14 +476,15 @@ class Map(QDialog):
         event.accept()
 
 
-# Movie Converter
-#   Allows the user to convert their moviedecks into videos
-class Movie(QDialog):
+# Media Converter
+#   Allows the user to convert their screenshots and moviedecks into different
+#   formats and higher resolutions
+class Media(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"MOVIE CONVERTER")
+        self.setWindowTitle(f"MEDIA CONVERTER")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -530,46 +508,8 @@ class Movie(QDialog):
         
     
     def closeEvent(self, event):
-        self.parent().movie_button.setDown(False)
-        self.parent().movie_button.setEnabled(True)
-        
-        event.accept()
-
-
-# Screenshot Converter
-#   Allows the user to convert their screenshots into different formats and
-#   higher resolutions
-class Screenshot(QDialog):
-    def __init__(self, parent=None):
-        super().__init__(parent=parent)
-
-        # Setup window title and icon
-        self.setWindowTitle(f"SCREENSHOT CONVERTER")
-        self.setWindowIcon(QIcon(constants.ICON_PATH))
-
-        # Hide "?" button
-        self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
-        
-        # Set window size restrictions
-        self.setFixedSize(300, 200)
-        
-        # Declare test label
-        self.test = QLabel("COMING SOON")
-        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
-        
-        # Declare main layout
-        self.main_layout = QGridLayout()
-        
-        # Populate main layout
-        self.main_layout.addWidget(self.test, 0, 0)
-        
-        # Set the layout
-        self.setLayout(self.main_layout)
-        
-    
-    def closeEvent(self, event):
-        self.parent().screenshot_button.setDown(False)
-        self.parent().screenshot_button.setEnabled(True)
+        self.parent().media_button.setDown(False)
+        self.parent().media_button.setEnabled(True)
         
         event.accept()
 
