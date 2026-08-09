@@ -117,9 +117,9 @@ class MyQMainWindow(QMainWindow):
                 "up": QPixmap(constants.BUTTON_ICON_PATHS["manual"]["up"]),
                 "down": QPixmap(constants.BUTTON_ICON_PATHS["manual"]["down"]),
             },
-            "update": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["update"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["update"]["down"]),
+            "data": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["data"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["data"]["down"]),
             },
         }
         
@@ -190,16 +190,16 @@ class MyQMainWindow(QMainWindow):
         self.build_button.setFixedSize(self.build_button.width, self.build_button.height)
         self.build_button.pressed.connect(self.build)
         
-        self.update_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["update"]["up"],
-            pixmap_hover=BUTTON_ICONS["update"]["up"],
-            pixmap_pressed=BUTTON_ICONS["update"]["down"],
+        self.data_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["data"]["up"],
+            pixmap_hover=BUTTON_ICONS["data"]["up"],
+            pixmap_pressed=BUTTON_ICONS["data"]["down"],
             scale=self.pixel_scale,
             parent=self
         )
-        self.update_button.setFocusPolicy(Qt.NoFocus)
-        self.update_button.setFixedSize(self.update_button.width, self.update_button.height)
-        self.update_button.pressed.connect(self.update)
+        self.data_button.setFocusPolicy(Qt.NoFocus)
+        self.data_button.setFixedSize(self.data_button.width, self.data_button.height)
+        self.data_button.pressed.connect(self.data)
         
         self.launch_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["launch"]["up"],
@@ -231,7 +231,7 @@ class MyQMainWindow(QMainWindow):
             ],
             [
                 self.build_button,
-                self.update_button,
+                self.data_button,
                 self.launch_button,
             ],
         ]
@@ -353,11 +353,11 @@ class MyQMainWindow(QMainWindow):
         self.position_popup(popup, constants.HorizontalAlign.LEFT, constants.VerticalAlign.BOTTOM)
         result = popup.show()
     
-    def update(self):
-        self.update_button.setEnabled(False)
-        self.update_button.setDown(True)
+    def data(self):
+        self.data_button.setEnabled(False)
+        self.data_button.setDown(True)
         
-        popup = Update(parent=self)
+        popup = Data(parent=self)
         self.position_popup(popup, constants.HorizontalAlign.CENTER, constants.VerticalAlign.BOTTOM)
         result = popup.show()
     
@@ -389,7 +389,7 @@ class Manual(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = QLabel("WIP\n\nEmail your outbox to:\nfenia.astrocartographydept@gmail.com")
+        self.test = QLabel("COMING SOON")
         self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
         
         # Declare main layout
@@ -595,14 +595,15 @@ class Build(QDialog):
         event.accept()
 
 
-# Update Data
-#   Allows the user to download updates to the GUIDE and Starmap
-class Update(QDialog):
+# Data Manager
+#   Allows the user to download updates to the GUIDE and Starmap, in addition
+#   to submitting their outbox
+class Data(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"UPDATE DATA")
+        self.setWindowTitle(f"DATA MANAGER")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -626,8 +627,8 @@ class Update(QDialog):
         
     
     def closeEvent(self, event):
-        self.parent().update_button.setDown(False)
-        self.parent().update_button.setEnabled(True)
+        self.parent().data_button.setDown(False)
+        self.parent().data_button.setEnabled(True)
         
         event.accept()
 
