@@ -34,7 +34,7 @@ class MyQMainWindow(QMainWindow):
         self.padding_px = 10
         self.clock_padding_px = 5
         self.button_padding_px = 10
-        self.clock_font_size = 16
+        self.clock_font_scale = 3
         self.button_scale = 3.0
 
         # Make main settings object
@@ -44,10 +44,8 @@ class MyQMainWindow(QMainWindow):
         self.setFixedSize(500, 350)
         
         # Declare clock elements
-        self.clock = QLabel()
-        self.clock_font = QFont("Courier New", self.clock_font_size)
-        self.clock_font.setBold(True)
-        self.clock.setFont(self.clock_font)
+        self.clock_font_pixmap = QPixmap(constants.FONT_PATH)
+        self.clock = widgets.ImageFont(self.clock_font_pixmap, self.clock_font_scale)
         self.update_clock()
 
         # Declare clock container
@@ -58,7 +56,7 @@ class MyQMainWindow(QMainWindow):
             self.padding_px,
             self.clock_padding_px
         )
-        self.clock_container.setFixedHeight((self.clock_padding_px * 2) + self.clock_font_size)
+        self.clock_container.setFixedHeight((self.clock_padding_px * 2) + self.clock.char_height)
         self.clock_container.setStyleSheet("background-color:{bg}; color:{text}".format(
             bg=constants.COLORS["clock_background"],
             text=constants.COLORS["clock_text"])
@@ -263,7 +261,7 @@ class MyQMainWindow(QMainWindow):
         self.setCentralWidget(self.main_widget)
     
     def update_clock(self):
-        self.clock.setText(feltime.feltime.now().strftime("EPOC %c"))
+        self.clock.set_text(feltime.feltime.now().strftime("EPOC %e & %t"))
     
     def position_popup(self, popup, horizontal, vertical):
         main_geometry = self.frameGeometry()
