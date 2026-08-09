@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtGui import QBrush, QColor, QPixmap, QPainter
 
+import helpers
 
 # Custom image-based button
 #   Allows for very fancy custom buttons
@@ -92,25 +93,30 @@ class ImageLabel(QLabel):
         return QSize(self.width, self.height)
 
 
-# Custom image-based font widget
-#   Allows for custom image-based fonts
-class ImageFont(QWidget):
+# Custom label widget that uses a spritesheet-based font
+#   Allows for custom image-based fonts to be used in labels
+class ImageFontLabel(QWidget):
     def __init__(self,
                font_pixmap,
                scale=1,
                spacing=1,
+               color=None,
                default_text=None
                ):
-        super(ImageFont, self).__init__()
+        super(ImageFontLabel, self).__init__()
         if scale % 1 != 0:
-                raise TypeError("ImageFont requires an integer as a scaling factor")
+                raise TypeError("ImageFontLabel requires an integer as a scaling factor")
         self.scale = scale
         self.spacing = spacing * self.scale
         
-        self.font_pixmap = font_pixmap.scaled(font_pixmap.width() * self.scale, font_pixmap.height() * self.scale, Qt.KeepAspectRatio, Qt.FastTransformation)
+        scaled_font_pixmap = font_pixmap.scaled(font_pixmap.width() * self.scale, font_pixmap.height() * self.scale, Qt.KeepAspectRatio, Qt.FastTransformation)
+        if color != None:  # Only change the color if it's specified
+            self.font_pixmap = helpers.pixmap_alpha_colorfill(scaled_font_pixmap, color)
+        else:
+            self.font_pixmap = scaled_font_pixmap
         
         if font_pixmap.width() % 128 != 0:
-            raise Exception(f"ImageFont requires a font image with a width divisible by 128. (input width: {font_pixmap.width()})")
+            raise Exception(f"ImageFontLabel requires a font image with a width divisible by 128. (input width: {font_pixmap.width()})")
         self.char_width = self.font_pixmap.width() // 128
         self.char_height = self.font_pixmap.height()
         
@@ -126,9 +132,11 @@ class ImageFont(QWidget):
         self.update()
     
     def paintEvent(self, event):
+        event_rect = event.rect()
+        x = event_rect.x()
+        y = event_rect.y()
+        
         painter = QPainter(self)
-        x = event.rect().x()
-        y = event.rect().y()
 
         for i, char in enumerate(self.text):
             source_x = ord(char) * self.char_width

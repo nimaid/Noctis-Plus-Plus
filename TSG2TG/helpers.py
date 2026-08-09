@@ -1,6 +1,6 @@
 import os
 
-from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtGui import QImage, QPixmap, QPainter, QColor
 
 # General purpose text input stripper
 def strip_all(input_text):
@@ -29,3 +29,16 @@ def image_to_pixmap(image):
     pixmap = QPixmap.fromImage(qimage)
 
     return pixmap
+
+
+# Replaces all pixels with a specific color while still preserving transparency
+def pixmap_alpha_colorfill(pixmap, color):
+    output_pixmap = QPixmap(pixmap)
+    
+    painter = QPainter(output_pixmap)
+    
+    painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+    painter.fillRect(output_pixmap.rect(), QColor(color))
+    painter.end()
+    
+    return output_pixmap

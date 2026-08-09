@@ -34,8 +34,8 @@ class MyQMainWindow(QMainWindow):
         self.padding_px = 10
         self.clock_padding_px = 5
         self.button_padding_px = 10
-        self.clock_font_scale = 3
-        self.button_scale = 3.0
+        self.pixel_font = QPixmap(constants.FONT_PATH)
+        self.pixel_scale = 3
 
         # Make main settings object
         self.settings = settings.Settings()
@@ -44,8 +44,7 @@ class MyQMainWindow(QMainWindow):
         self.setFixedSize(500, 350)
         
         # Declare clock elements
-        self.clock_font_pixmap = QPixmap(constants.FONT_PATH)
-        self.clock = widgets.ImageFont(self.clock_font_pixmap, self.clock_font_scale)
+        self.clock = widgets.ImageFontLabel(self.pixel_font, scale=self.pixel_scale, color=constants.COLORS["clock_text"])
         self.update_clock()
 
         # Declare clock container
@@ -84,7 +83,7 @@ class MyQMainWindow(QMainWindow):
         # Declare "DON'T PANIC" picture label
         self.panic_label = widgets.ImageLabel(
             pixmap=self.panic_icon,
-            scale=self.button_scale,
+            scale=self.pixel_scale,
             parent=self
         )
         
@@ -129,7 +128,7 @@ class MyQMainWindow(QMainWindow):
             pixmap=BUTTON_ICONS["submit"]["up"],
             pixmap_hover=BUTTON_ICONS["submit"]["up"],
             pixmap_pressed=BUTTON_ICONS["submit"]["down"],
-            scale=self.button_scale,
+            scale=self.pixel_scale,
             parent=self
         )
         self.submit_button.setFocusPolicy(Qt.NoFocus)
@@ -140,7 +139,7 @@ class MyQMainWindow(QMainWindow):
             pixmap=BUTTON_ICONS["chat"]["up"],
             pixmap_hover=BUTTON_ICONS["chat"]["up"],
             pixmap_pressed=BUTTON_ICONS["chat"]["down"],
-            scale=self.button_scale,
+            scale=self.pixel_scale,
             parent=self
         )
         self.chat_button.setFocusPolicy(Qt.NoFocus)
@@ -151,7 +150,7 @@ class MyQMainWindow(QMainWindow):
             pixmap=BUTTON_ICONS["map"]["up"],
             pixmap_hover=BUTTON_ICONS["map"]["up"],
             pixmap_pressed=BUTTON_ICONS["map"]["down"],
-            scale=self.button_scale,
+            scale=self.pixel_scale,
             parent=self
         )
         self.map_button.setFocusPolicy(Qt.NoFocus)
@@ -162,7 +161,7 @@ class MyQMainWindow(QMainWindow):
             pixmap=BUTTON_ICONS["media"]["up"],
             pixmap_hover=BUTTON_ICONS["media"]["up"],
             pixmap_pressed=BUTTON_ICONS["media"]["down"],
-            scale=self.button_scale,
+            scale=self.pixel_scale,
             parent=self
         )
         self.media_button.setFocusPolicy(Qt.NoFocus)
@@ -173,7 +172,7 @@ class MyQMainWindow(QMainWindow):
             pixmap=BUTTON_ICONS["calculator"]["up"],
             pixmap_hover=BUTTON_ICONS["calculator"]["up"],
             pixmap_pressed=BUTTON_ICONS["calculator"]["down"],
-            scale=self.button_scale,
+            scale=self.pixel_scale,
             parent=self
         )
         self.calculator_button.setFocusPolicy(Qt.NoFocus)
@@ -184,7 +183,7 @@ class MyQMainWindow(QMainWindow):
             pixmap=BUTTON_ICONS["build"]["up"],
             pixmap_hover=BUTTON_ICONS["build"]["up"],
             pixmap_pressed=BUTTON_ICONS["build"]["down"],
-            scale=self.button_scale,
+            scale=self.pixel_scale,
             parent=self
         )
         self.build_button.setFocusPolicy(Qt.NoFocus)
@@ -195,7 +194,7 @@ class MyQMainWindow(QMainWindow):
             pixmap=BUTTON_ICONS["update"]["up"],
             pixmap_hover=BUTTON_ICONS["update"]["up"],
             pixmap_pressed=BUTTON_ICONS["update"]["down"],
-            scale=self.button_scale,
+            scale=self.pixel_scale,
             parent=self
         )
         self.update_button.setFocusPolicy(Qt.NoFocus)
@@ -206,7 +205,7 @@ class MyQMainWindow(QMainWindow):
             pixmap=BUTTON_ICONS["launch"]["up"],
             pixmap_hover=BUTTON_ICONS["launch"]["up"],
             pixmap_pressed=BUTTON_ICONS["launch"]["down"],
-            scale=self.button_scale,
+            scale=self.pixel_scale,
             parent=self
         )
         self.launch_button.setFocusPolicy(Qt.NoFocus)
