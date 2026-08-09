@@ -279,10 +279,11 @@ class MyQMainWindow(QMainWindow):
         
         taskbar_height = screen_geometry.height() - screen_available_geometry.height()
         titlebar_height = main_geometry.height() - main_available_geometry.height()
+        frame_width = main_geometry.width() - main_available_geometry.width()
         
         match horizontal:
             case constants.HorizontalAlign.LEFT:
-                x = main_geometry.x() - popup_geometry.width()
+                x = main_geometry.x() - popup_geometry.width() - frame_width
             case constants.HorizontalAlign.CENTER:
                  x = round(main_geometry.x() - (popup_geometry.width() / 2) + (main_geometry.width() / 2))
             case constants.HorizontalAlign.RIGHT:
