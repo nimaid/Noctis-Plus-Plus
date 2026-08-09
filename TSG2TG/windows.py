@@ -113,9 +113,9 @@ class MyQMainWindow(QMainWindow):
                 "up": QPixmap(constants.BUTTON_ICON_PATHS["media"]["up"]),
                 "down": QPixmap(constants.BUTTON_ICON_PATHS["media"]["down"]),
             },
-            "submit": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["submit"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["submit"]["down"]),
+            "manual": {
+                "up": QPixmap(constants.BUTTON_ICON_PATHS["manual"]["up"]),
+                "down": QPixmap(constants.BUTTON_ICON_PATHS["manual"]["down"]),
             },
             "update": {
                 "up": QPixmap(constants.BUTTON_ICON_PATHS["update"]["up"]),
@@ -124,16 +124,16 @@ class MyQMainWindow(QMainWindow):
         }
         
         # Declare buttons
-        self.submit_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["submit"]["up"],
-            pixmap_hover=BUTTON_ICONS["submit"]["up"],
-            pixmap_pressed=BUTTON_ICONS["submit"]["down"],
+        self.manual_button = widgets.ImageButton(
+            pixmap=BUTTON_ICONS["manual"]["up"],
+            pixmap_hover=BUTTON_ICONS["manual"]["up"],
+            pixmap_pressed=BUTTON_ICONS["manual"]["down"],
             scale=self.pixel_scale,
             parent=self
         )
-        self.submit_button.setFocusPolicy(Qt.NoFocus)
-        self.submit_button.setFixedSize(self.submit_button.width, self.submit_button.height)
-        self.submit_button.pressed.connect(self.submit)
+        self.manual_button.setFocusPolicy(Qt.NoFocus)
+        self.manual_button.setFixedSize(self.manual_button.width, self.manual_button.height)
+        self.manual_button.pressed.connect(self.manual)
         
         self.chat_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["chat"]["up"],
@@ -220,7 +220,7 @@ class MyQMainWindow(QMainWindow):
         # Populate button area
         self.entries_array = [
             [
-                self.submit_button,
+                self.manual_button,
                 self.chat_button,
                 self.map_button,
             ],
@@ -305,11 +305,11 @@ class MyQMainWindow(QMainWindow):
         
         popup.move(x, y)
     
-    def submit(self):
-        self.submit_button.setEnabled(False)
-        self.submit_button.setDown(True)
+    def manual(self):
+        self.manual_button.setEnabled(False)
+        self.manual_button.setDown(True)
         
-        popup = Submit(parent=self)
+        popup = Manual(parent=self)
         self.position_popup(popup, constants.HorizontalAlign.LEFT, constants.VerticalAlign.TOP)
         result = popup.show()
     
@@ -372,14 +372,14 @@ class MyQMainWindow(QMainWindow):
 
 # ---- POPUP WINDOWS ----
 
-# Submit Outbox
-#   Allows the user to submit their outbox
-class Submit(QDialog):
+# Read Manual
+#   Allows the user to view the manual and submit their data
+class Manual(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"SUBMIT OUTBOX")
+        self.setWindowTitle(f"READ MANUAL")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -389,7 +389,7 @@ class Submit(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = QLabel("COMING SOON")
+        self.test = QLabel("WIP\n\nEmail your outbox to:\nfenia.astrocartographydept@gmail.com")
         self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
         
         # Declare main layout
@@ -403,8 +403,8 @@ class Submit(QDialog):
         
     
     def closeEvent(self, event):
-        self.parent().submit_button.setDown(False)
-        self.parent().submit_button.setEnabled(True)
+        self.parent().manual_button.setDown(False)
+        self.parent().manual_button.setEnabled(True)
         
         event.accept()
 
