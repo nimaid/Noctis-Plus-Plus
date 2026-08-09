@@ -151,36 +151,36 @@ class MyQMainWindow(QMainWindow):
         self.map_button.setFocusPolicy(Qt.NoFocus)
         self.map_button.setFixedSize(self.map_button.width, self.map_button.height)
         
-        self.movie_converter_button = widgets.ImageButton(
+        self.movie_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["movie"]["up"],
             pixmap_hover=BUTTON_ICONS["movie"]["up"],
             pixmap_pressed=BUTTON_ICONS["movie"]["down"],
             scale=self.button_scale,
             parent=self
         )
-        self.movie_converter_button.setFocusPolicy(Qt.NoFocus)
-        self.movie_converter_button.setFixedSize(self.movie_converter_button.width, self.movie_converter_button.height)
+        self.movie_button.setFocusPolicy(Qt.NoFocus)
+        self.movie_button.setFixedSize(self.movie_button.width, self.movie_button.height)
         
-        self.screenshot_converter_button = widgets.ImageButton(
+        self.screenshot_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["screenshot"]["up"],
             pixmap_hover=BUTTON_ICONS["screenshot"]["up"],
             pixmap_pressed=BUTTON_ICONS["screenshot"]["down"],
             scale=self.button_scale,
             parent=self
         )
-        self.screenshot_converter_button.setFocusPolicy(Qt.NoFocus)
-        self.screenshot_converter_button.setFixedSize(self.screenshot_converter_button.width, self.screenshot_converter_button.height)
+        self.screenshot_button.setFocusPolicy(Qt.NoFocus)
+        self.screenshot_button.setFixedSize(self.screenshot_button.width, self.screenshot_button.height)
         
-        self.converter_calculator_button = widgets.ImageButton(
+        self.calculator_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["calculator"]["up"],
             pixmap_hover=BUTTON_ICONS["calculator"]["up"],
             pixmap_pressed=BUTTON_ICONS["calculator"]["down"],
             scale=self.button_scale,
             parent=self
         )
-        self.converter_calculator_button.setFocusPolicy(Qt.NoFocus)
-        self.converter_calculator_button.setFixedSize(self.converter_calculator_button.width, self.converter_calculator_button.height)
-        self.converter_calculator_button.pressed.connect(self.converter_calculator)
+        self.calculator_button.setFocusPolicy(Qt.NoFocus)
+        self.calculator_button.setFixedSize(self.calculator_button.width, self.calculator_button.height)
+        self.calculator_button.pressed.connect(self.calculator)
         
         self.build_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["build"]["up"],
@@ -225,9 +225,9 @@ class MyQMainWindow(QMainWindow):
                 self.map_button,
             ],
             [
-                self.movie_converter_button,
-                self.screenshot_converter_button,
-                self.converter_calculator_button,
+                self.movie_button,
+                self.screenshot_button,
+                self.calculator_button,
             ],
             [
                 self.build_button,
@@ -262,10 +262,54 @@ class MyQMainWindow(QMainWindow):
     def update_clock(self):
         self.clock.setText(feltime.feltime.now().strftime("EPOC %c"))
     
-    def converter_calculator(self):
-        self.converter_calculator_button.setEnabled(False)
-        self.converter_calculator_button.setDown(True)
-        popup = ConverterCalculator(parent=self)
+    def position_popup(self, popup, horizontal, vertical):
+        main_geometry = self.frameGeometry()
+        main_available_geometry = self.geometry()
+        popup_geometry = popup.frameGeometry()
+        screen_available_geometry = self.windowHandle().screen().availableGeometry()
+        screen_geometry = self.windowHandle().screen().geometry()
+        
+        taskbar_height = screen_geometry.height() - screen_available_geometry.height()
+        titlebar_height = main_geometry.height() - main_available_geometry.height()
+        
+        match horizontal:
+            case constants.HorizontalAlign.LEFT:
+                x = main_geometry.x() - popup_geometry.width()
+            case constants.HorizontalAlign.CENTER:
+                 x = round(main_geometry.x() - (popup_geometry.width() / 2) + (main_geometry.width() / 2))
+            case constants.HorizontalAlign.RIGHT:
+                x = main_geometry.x() + main_geometry.width()
+        
+        match vertical:
+            case constants.VerticalAlign.TOP:
+                y = main_geometry.y() - popup_geometry.height() - titlebar_height
+            case constants.VerticalAlign.CENTER:
+                 y = round(main_geometry.y() - (popup_geometry.height() / 2) + (main_geometry.height() / 2))
+            case constants.VerticalAlign.BOTTOM:
+                y = main_geometry.y() + main_geometry.height()
+        
+        min_x = screen_available_geometry.x()
+        max_x = min_x + screen_available_geometry.width() - popup_geometry.width()
+        min_y = screen_available_geometry.y()
+        max_y = min_y + screen_available_geometry.height() - popup_geometry.height() - taskbar_height
+        
+        if x < min_x:
+            x = min_x
+        if x > max_x:
+            x = max_x
+        if y < min_y:
+            y = min_y
+        if y > max_y:
+            y = max_y
+        
+        popup.move(x, y)
+    
+    def calculator(self):
+        self.calculator_button.setEnabled(False)
+        self.calculator_button.setDown(True)
+        
+        popup = Calculator(parent=self)
+        self.position_popup(popup, constants.HorizontalAlign.RIGHT, constants.VerticalAlign.CENTER)
         result = popup.show()
 
 
@@ -273,7 +317,7 @@ class MyQMainWindow(QMainWindow):
 
 # Converter Calculator
 #   Allows conversions and calculations related to in-game and real-life units
-class ConverterCalculator(QDialog):
+class Calculator(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
 
@@ -285,10 +329,10 @@ class ConverterCalculator(QDialog):
         self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
         
         # Set window size restrictions
-        self.setMinimumSize(300, 200)
+        self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = QLabel("TEST")
+        self.test = QLabel("COMING SOON")
         self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
         
         # Declare main layout
@@ -302,6 +346,7 @@ class ConverterCalculator(QDialog):
         
     
     def closeEvent(self, event):
-        self.parent().converter_calculator_button.setDown(False)
-        self.parent().converter_calculator_button.setEnabled(True)
+        self.parent().calculator_button.setDown(False)
+        self.parent().calculator_button.setEnabled(True)
+        
         event.accept()

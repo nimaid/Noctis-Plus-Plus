@@ -11,6 +11,16 @@ class PlatformCode(Enum):
     MAC = "darwin"
     UNKNOWN = "unknown"
 
+class HorizontalAlign(Enum):
+        LEFT = "left"
+        CENTER = "hcenter"
+        RIGHT = "right"
+
+class VerticalAlign(Enum):
+        TOP = "top"
+        CENTER = "vcenter"
+        BOTTOM = "bottom"
+
 # Set platform dependent variables
 USER_DIR = os.path.expanduser("~")
 
