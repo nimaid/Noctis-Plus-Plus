@@ -372,14 +372,14 @@ class MyQMainWindow(QMainWindow):
 
 # ---- POPUP WINDOWS ----
 
-# Read Manual
-#   Allows the user to view the manual and submit their data
+# Manual Reader
+#   Allows the user to view the HTML manual
 class Manual(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"READ MANUAL")
+        self.setWindowTitle(f"MANUAL READER")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -446,14 +446,14 @@ class Chat(QDialog):
         event.accept()
 
 
-# View Map
+# Map Viewer
 #   Allows the user to view the Starmap, GUIDE, and their outbox
 class Map(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"VIEW MAP")
+        self.setWindowTitle(f"MAP VIEWER")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -558,14 +558,14 @@ class Calculator(QDialog):
         event.accept()
 
 
-# Build Noctis
+# Noctis Builder
 #   Allows the user to build Noctis from source
 class Build(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"BUILD NOCTIS")
+        self.setWindowTitle(f"NOCTIS BUILDER")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -632,14 +632,14 @@ class Data(QDialog):
         
         event.accept()
 
-# Launch Noctis
+# Noctis Launcher
 #   Allows the user to launch Noctis
 class Launch(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"LAUNCH NOCTIS")
+        self.setWindowTitle(f"NOCTIS LAUNCHER")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
