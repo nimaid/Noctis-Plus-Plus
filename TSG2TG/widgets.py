@@ -1,7 +1,7 @@
 import math
 from PyQt5.QtCore import Qt, QPoint, QRectF, QSize, pyqtSignal
 from PyQt5.QtWidgets import (
-    QAbstractButton, QSlider, QStyle,
+    QAbstractButton, QSlider, QStyle, QLabel,
     QGraphicsView, QGraphicsScene, QGraphicsPixmapItem, QFrame
 )
 from PyQt5.QtGui import QBrush, QColor, QPixmap, QPainter
@@ -64,6 +64,31 @@ class ImageButton(QAbstractButton):
 
     def leaveEvent(self, event):
         self.update()
+
+    def sizeHint(self):
+        return QSize(self.width, self.height)
+
+
+# Custom image-based label
+#   Allows for very fancy custom labels
+class ImageLabel(QLabel):
+    def __init__(self,
+                 pixmap,
+                 scale=1.0,
+                 parent=None
+                 ):
+        super(ImageLabel, self).__init__(parent)
+        self.pixmap = pixmap
+        self.scale = scale
+
+        self.width = round(self.pixmap.width() * self.scale)
+        self.height = round(self.pixmap.height() * self.scale)
+
+        self.update()
+    
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.drawPixmap(event.rect(), self.pixmap)
 
     def sizeHint(self):
         return QSize(self.width, self.height)

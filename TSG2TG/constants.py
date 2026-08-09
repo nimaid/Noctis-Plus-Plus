@@ -56,6 +56,7 @@ COLORS = {
 PATH = os.path.dirname(Path(__file__).resolve())
 RESOURCE_PATH = os.path.join(PATH, "resources")
 ICON_PATH = os.path.join(RESOURCE_PATH, "icon.png")
+PANIC_ICON_PATH = os.path.join(RESOURCE_PATH, "panic.png")
 BUTTON_ICON_PATHS = {
     "build": {
         "up": os.path.join(RESOURCE_PATH, "button_build_up.png"),

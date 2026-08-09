@@ -80,6 +80,16 @@ class MyQMainWindow(QMainWindow):
         self.clock_timer.timeout.connect(self.update_clock)
         self.clock_timer.start(250)  # Update 4x a second to keep it as close to synced as possible
         
+        # Declare "DON'T PANIC" icon
+        self.panic_icon = QPixmap(constants.PANIC_ICON_PATH)
+        
+        # Declare "DON'T PANIC" picture label
+        self.panic_label = widgets.ImageLabel(
+            pixmap=self.panic_icon,
+            scale=self.button_scale,
+            parent=self
+        )
+        
         # Declare button icons
         BUTTON_ICONS = {
             "build": {
@@ -219,7 +229,7 @@ class MyQMainWindow(QMainWindow):
             ],
             [
                 self.media_button,
-                None,
+                self.panic_label,
                 self.calculator_button,
             ],
             [
