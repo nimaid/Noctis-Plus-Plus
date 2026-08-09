@@ -130,6 +130,7 @@ class MyQMainWindow(QMainWindow):
         )
         self.submit_button.setFocusPolicy(Qt.NoFocus)
         self.submit_button.setFixedSize(self.submit_button.width, self.submit_button.height)
+        self.submit_button.pressed.connect(self.submit)
         
         self.chat_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["chat"]["up"],
@@ -140,6 +141,7 @@ class MyQMainWindow(QMainWindow):
         )
         self.chat_button.setFocusPolicy(Qt.NoFocus)
         self.chat_button.setFixedSize(self.chat_button.width, self.chat_button.height)
+        self.chat_button.pressed.connect(self.chat)
         
         self.map_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["map"]["up"],
@@ -150,6 +152,7 @@ class MyQMainWindow(QMainWindow):
         )
         self.map_button.setFocusPolicy(Qt.NoFocus)
         self.map_button.setFixedSize(self.map_button.width, self.map_button.height)
+        self.map_button.pressed.connect(self.map)
         
         self.movie_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["movie"]["up"],
@@ -160,6 +163,7 @@ class MyQMainWindow(QMainWindow):
         )
         self.movie_button.setFocusPolicy(Qt.NoFocus)
         self.movie_button.setFixedSize(self.movie_button.width, self.movie_button.height)
+        self.movie_button.pressed.connect(self.movie)
         
         self.screenshot_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["screenshot"]["up"],
@@ -170,6 +174,7 @@ class MyQMainWindow(QMainWindow):
         )
         self.screenshot_button.setFocusPolicy(Qt.NoFocus)
         self.screenshot_button.setFixedSize(self.screenshot_button.width, self.screenshot_button.height)
+        self.screenshot_button.pressed.connect(self.screenshot)
         
         self.calculator_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["calculator"]["up"],
@@ -191,6 +196,7 @@ class MyQMainWindow(QMainWindow):
         )
         self.build_button.setFocusPolicy(Qt.NoFocus)
         self.build_button.setFixedSize(self.build_button.width, self.build_button.height)
+        self.build_button.pressed.connect(self.build)
         
         self.update_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["update"]["up"],
@@ -201,6 +207,7 @@ class MyQMainWindow(QMainWindow):
         )
         self.update_button.setFocusPolicy(Qt.NoFocus)
         self.update_button.setFixedSize(self.update_button.width, self.update_button.height)
+        self.update_button.pressed.connect(self.update)
         
         self.launch_button = widgets.ImageButton(
             pixmap=BUTTON_ICONS["launch"]["up"],
@@ -211,6 +218,7 @@ class MyQMainWindow(QMainWindow):
         )
         self.launch_button.setFocusPolicy(Qt.NoFocus)
         self.launch_button.setFixedSize(self.launch_button.width, self.launch_button.height)
+        self.launch_button.pressed.connect(self.launch)
         
         # Declare button area
         self.button_area = QGridLayout()
@@ -304,6 +312,46 @@ class MyQMainWindow(QMainWindow):
         
         popup.move(x, y)
     
+    def submit(self):
+        self.submit_button.setEnabled(False)
+        self.submit_button.setDown(True)
+        
+        popup = Submit(parent=self)
+        self.position_popup(popup, constants.HorizontalAlign.LEFT, constants.VerticalAlign.TOP)
+        result = popup.show()
+    
+    def chat(self):
+        self.chat_button.setEnabled(False)
+        self.chat_button.setDown(True)
+        
+        popup = Chat(parent=self)
+        self.position_popup(popup, constants.HorizontalAlign.CENTER, constants.VerticalAlign.TOP)
+        result = popup.show()
+    
+    def map(self):
+        self.map_button.setEnabled(False)
+        self.map_button.setDown(True)
+        
+        popup = Map(parent=self)
+        self.position_popup(popup, constants.HorizontalAlign.RIGHT, constants.VerticalAlign.TOP)
+        result = popup.show()
+    
+    def movie(self):
+        self.movie_button.setEnabled(False)
+        self.movie_button.setDown(True)
+        
+        popup = Movie(parent=self)
+        self.position_popup(popup, constants.HorizontalAlign.LEFT, constants.VerticalAlign.CENTER)
+        result = popup.show()
+    
+    def screenshot(self):
+        self.screenshot_button.setEnabled(False)
+        self.screenshot_button.setDown(True)
+        
+        popup = Screenshot(parent=self)
+        self.position_popup(popup, constants.HorizontalAlign.LEFT, constants.VerticalAlign.CENTER)
+        result = popup.show()
+    
     def calculator(self):
         self.calculator_button.setEnabled(False)
         self.calculator_button.setDown(True)
@@ -311,9 +359,219 @@ class MyQMainWindow(QMainWindow):
         popup = Calculator(parent=self)
         self.position_popup(popup, constants.HorizontalAlign.RIGHT, constants.VerticalAlign.CENTER)
         result = popup.show()
+    
+    def build(self):
+        self.build_button.setEnabled(False)
+        self.build_button.setDown(True)
+        
+        popup = Build(parent=self)
+        self.position_popup(popup, constants.HorizontalAlign.LEFT, constants.VerticalAlign.BOTTOM)
+        result = popup.show()
+    
+    def update(self):
+        self.update_button.setEnabled(False)
+        self.update_button.setDown(True)
+        
+        popup = Update(parent=self)
+        self.position_popup(popup, constants.HorizontalAlign.CENTER, constants.VerticalAlign.BOTTOM)
+        result = popup.show()
+    
+    def launch(self):
+        self.launch_button.setEnabled(False)
+        self.launch_button.setDown(True)
+        
+        popup = Launch(parent=self)
+        self.position_popup(popup, constants.HorizontalAlign.RIGHT, constants.VerticalAlign.BOTTOM)
+        result = popup.show()
 
 
 # ---- POPUP WINDOWS ----
+
+# Submit Outbox
+#   Allows the user to submit their outbox
+class Submit(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+
+        # Setup window title and icon
+        self.setWindowTitle(f"SUBMIT OUTBOX")
+        self.setWindowIcon(QIcon(constants.ICON_PATH))
+
+        # Hide "?" button
+        self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
+        
+        # Set window size restrictions
+        self.setFixedSize(300, 200)
+        
+        # Declare test label
+        self.test = QLabel("COMING SOON")
+        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        
+        # Declare main layout
+        self.main_layout = QGridLayout()
+        
+        # Populate main layout
+        self.main_layout.addWidget(self.test, 0, 0)
+        
+        # Set the layout
+        self.setLayout(self.main_layout)
+        
+    
+    def closeEvent(self, event):
+        self.parent().submit_button.setDown(False)
+        self.parent().submit_button.setEnabled(True)
+        
+        event.accept()
+
+
+# Live Chat
+#   Allows the user to speak live with other players
+class Chat(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+
+        # Setup window title and icon
+        self.setWindowTitle(f"LIVE CHAT")
+        self.setWindowIcon(QIcon(constants.ICON_PATH))
+
+        # Hide "?" button
+        self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
+        
+        # Set window size restrictions
+        self.setFixedSize(300, 200)
+        
+        # Declare test label
+        self.test = QLabel("COMING SOON")
+        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        
+        # Declare main layout
+        self.main_layout = QGridLayout()
+        
+        # Populate main layout
+        self.main_layout.addWidget(self.test, 0, 0)
+        
+        # Set the layout
+        self.setLayout(self.main_layout)
+        
+    
+    def closeEvent(self, event):
+        self.parent().chat_button.setDown(False)
+        self.parent().chat_button.setEnabled(True)
+        
+        event.accept()
+
+
+# View Map
+#   Allows the user to view the Starmap, GUIDE, and their outbox
+class Map(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+
+        # Setup window title and icon
+        self.setWindowTitle(f"VIEW MAP")
+        self.setWindowIcon(QIcon(constants.ICON_PATH))
+
+        # Hide "?" button
+        self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
+        
+        # Set window size restrictions
+        self.setFixedSize(300, 200)
+        
+        # Declare test label
+        self.test = QLabel("COMING SOON")
+        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        
+        # Declare main layout
+        self.main_layout = QGridLayout()
+        
+        # Populate main layout
+        self.main_layout.addWidget(self.test, 0, 0)
+        
+        # Set the layout
+        self.setLayout(self.main_layout)
+        
+    
+    def closeEvent(self, event):
+        self.parent().map_button.setDown(False)
+        self.parent().map_button.setEnabled(True)
+        
+        event.accept()
+
+
+# Movie Converter
+#   Allows the user to convert their moviedecks into videos
+class Movie(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+
+        # Setup window title and icon
+        self.setWindowTitle(f"MOVIE CONVERTER")
+        self.setWindowIcon(QIcon(constants.ICON_PATH))
+
+        # Hide "?" button
+        self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
+        
+        # Set window size restrictions
+        self.setFixedSize(300, 200)
+        
+        # Declare test label
+        self.test = QLabel("COMING SOON")
+        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        
+        # Declare main layout
+        self.main_layout = QGridLayout()
+        
+        # Populate main layout
+        self.main_layout.addWidget(self.test, 0, 0)
+        
+        # Set the layout
+        self.setLayout(self.main_layout)
+        
+    
+    def closeEvent(self, event):
+        self.parent().movie_button.setDown(False)
+        self.parent().movie_button.setEnabled(True)
+        
+        event.accept()
+
+
+# Screenshot Converter
+#   Allows the user to convert their screenshots into different formats and
+#   higher resolutions
+class Screenshot(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+
+        # Setup window title and icon
+        self.setWindowTitle(f"SCREENSHOT CONVERTER")
+        self.setWindowIcon(QIcon(constants.ICON_PATH))
+
+        # Hide "?" button
+        self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
+        
+        # Set window size restrictions
+        self.setFixedSize(300, 200)
+        
+        # Declare test label
+        self.test = QLabel("COMING SOON")
+        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        
+        # Declare main layout
+        self.main_layout = QGridLayout()
+        
+        # Populate main layout
+        self.main_layout.addWidget(self.test, 0, 0)
+        
+        # Set the layout
+        self.setLayout(self.main_layout)
+        
+    
+    def closeEvent(self, event):
+        self.parent().screenshot_button.setDown(False)
+        self.parent().screenshot_button.setEnabled(True)
+        
+        event.accept()
+
 
 # Converter Calculator
 #   Allows conversions and calculations related to in-game and real-life units
@@ -348,5 +606,115 @@ class Calculator(QDialog):
     def closeEvent(self, event):
         self.parent().calculator_button.setDown(False)
         self.parent().calculator_button.setEnabled(True)
+        
+        event.accept()
+
+
+# Build Noctis
+#   Allows the user to build Noctis from source
+class Build(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+
+        # Setup window title and icon
+        self.setWindowTitle(f"BUILD NOCTIS")
+        self.setWindowIcon(QIcon(constants.ICON_PATH))
+
+        # Hide "?" button
+        self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
+        
+        # Set window size restrictions
+        self.setFixedSize(300, 200)
+        
+        # Declare test label
+        self.test = QLabel("COMING SOON")
+        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        
+        # Declare main layout
+        self.main_layout = QGridLayout()
+        
+        # Populate main layout
+        self.main_layout.addWidget(self.test, 0, 0)
+        
+        # Set the layout
+        self.setLayout(self.main_layout)
+        
+    
+    def closeEvent(self, event):
+        self.parent().build_button.setDown(False)
+        self.parent().build_button.setEnabled(True)
+        
+        event.accept()
+
+
+# Update Data
+#   Allows the user to download updates to the GUIDE and Starmap
+class Update(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+
+        # Setup window title and icon
+        self.setWindowTitle(f"UPDATE DATA")
+        self.setWindowIcon(QIcon(constants.ICON_PATH))
+
+        # Hide "?" button
+        self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
+        
+        # Set window size restrictions
+        self.setFixedSize(300, 200)
+        
+        # Declare test label
+        self.test = QLabel("COMING SOON")
+        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        
+        # Declare main layout
+        self.main_layout = QGridLayout()
+        
+        # Populate main layout
+        self.main_layout.addWidget(self.test, 0, 0)
+        
+        # Set the layout
+        self.setLayout(self.main_layout)
+        
+    
+    def closeEvent(self, event):
+        self.parent().update_button.setDown(False)
+        self.parent().update_button.setEnabled(True)
+        
+        event.accept()
+
+# Launch Noctis
+#   Allows the user to launch Noctis
+class Launch(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+
+        # Setup window title and icon
+        self.setWindowTitle(f"LAUNCH NOCTIS")
+        self.setWindowIcon(QIcon(constants.ICON_PATH))
+
+        # Hide "?" button
+        self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
+        
+        # Set window size restrictions
+        self.setFixedSize(300, 200)
+        
+        # Declare test label
+        self.test = QLabel("COMING SOON")
+        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        
+        # Declare main layout
+        self.main_layout = QGridLayout()
+        
+        # Populate main layout
+        self.main_layout.addWidget(self.test, 0, 0)
+        
+        # Set the layout
+        self.setLayout(self.main_layout)
+        
+    
+    def closeEvent(self, event):
+        self.parent().launch_button.setDown(False)
+        self.parent().launch_button.setEnabled(True)
         
         event.accept()
