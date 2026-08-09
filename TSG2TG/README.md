@@ -1,2 +1,5 @@
 # The Stardrifter's GUIDE to the Galaxy
-### WIP
+### The Essential Multitool for Noctis
+![](docs/sample.png)
+
+# WIP
