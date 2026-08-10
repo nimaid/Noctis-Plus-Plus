@@ -1,12 +1,12 @@
-import datetime
+import datetime as _dt
 
-DATETIME_EPOCH = datetime.datetime(year=1984, month=1, day=2)
+DATETIME_EPOCH = _dt.datetime(year=1984, month=1, day=2)
 EPOC_EPOCH = 6011.0
 
 EPOC_MIN = 5949
 EPOC_MAX = 9999
 
-class feltime:
+class datetime:
     def __init__(self, epoc, sinister, medius, dexter=0, fraction=0):
         if not isinstance(epoc, int):
             raise TypeError(f"'epoc must be an 'int', not a '{type(epoc).__name__}'")
@@ -39,28 +39,28 @@ class feltime:
         self.fraction = fraction
     
     def __repr__(self):
-        return self.strftime("feltime.feltime(%e, %s, %m, %d, %f)")
+        return self.strftime("feltime.datetime(%e, %s, %m, %d, %f)")
     
     def __str__(self):
         return self.strftime("%e:%S.%M.%D")
     
     def __add__(self, other):
-        if isinstance(other, datetime.timedelta):
+        if isinstance(other, _dt.timedelta):
             return self.from_datetime(self.to_datetime() + other)
         else:
-            raise TypeError(f"unsupported operand type(s) for +: 'feltime.feltime' and '{type(other).__name__}'")
+            raise TypeError(f"unsupported operand type(s) for +: 'feltime.datetime' and '{type(other).__name__}'")
     
     def __sub__(self, other):
-        if isinstance(other, feltime):
+        if isinstance(other, datetime):
             return self.to_datetime() - other.to_datetime()
-        elif isinstance(other, datetime.timedelta) or isinstance(other, datetime.datetime):
+        elif isinstance(other, _dt.timedelta) or isinstance(other, _dt.datetime):
             return self.from_datetime(self.to_datetime() - other)
         else:
-            raise TypeError(f"unsupported operand type(s) for -: 'feltime.feltime' and '{type(other).__name__}'")
+            raise TypeError(f"unsupported operand type(s) for -: 'feltime.datetime' and '{type(other).__name__}'")
     
     @classmethod
     def from_datetime(cls, dt):
-        if not isinstance(dt, datetime.datetime):
+        if not isinstance(dt, _dt.datetime):
             raise TypeError(f"'dt' must be a 'datetime.datetime object', not a '{type(dt).__name__}'")
         
         epoc_raw = EPOC_EPOCH + ((dt - DATETIME_EPOCH).total_seconds() / 1e9)
@@ -86,7 +86,7 @@ class feltime:
     
     @classmethod
     def now(cls):
-        return cls.from_datetime(datetime.datetime.now())
+        return cls.from_datetime(_dt.datetime.now())
     
     @property
     def epoc_raw(self):
@@ -101,7 +101,7 @@ class feltime:
         if not isinstance(epoc_raw, float) and not isinstance(epoc_raw, int):
             raise TypeError(f"'epoc_raw' must be a 'float' or 'int', not a '{type(epoc_raw).__name__}'")
         
-        return DATETIME_EPOCH + datetime.timedelta(seconds=(epoc_raw - EPOC_EPOCH) * 1e9)
+        return DATETIME_EPOCH + _dt.timedelta(seconds=(epoc_raw - EPOC_EPOCH) * 1e9)
     
     def strftime(self, format):
         '''
