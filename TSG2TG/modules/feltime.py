@@ -46,20 +46,20 @@ class datetime:
     
     def __add__(self, other):
         if isinstance(other, _dt.timedelta):
-            return self.from_datetime(self.to_datetime() + other)
+            return self.from_real_time(self.to_real_time() + other)
         else:
             raise TypeError(f"unsupported operand type(s) for +: 'feltime.datetime' and '{type(other).__name__}'")
     
     def __sub__(self, other):
         if isinstance(other, datetime):
-            return self.to_datetime() - other.to_datetime()
+            return self.to_real_time() - other.to_real_time()
         elif isinstance(other, _dt.timedelta) or isinstance(other, _dt.datetime):
-            return self.from_datetime(self.to_datetime() - other)
+            return self.from_real_time(self.to_real_time() - other)
         else:
             raise TypeError(f"unsupported operand type(s) for -: 'feltime.datetime' and '{type(other).__name__}'")
     
     @classmethod
-    def from_datetime(cls, dt):
+    def from_real_time(cls, dt):
         if not isinstance(dt, _dt.datetime):
             raise TypeError(f"'dt' must be a 'datetime.datetime object', not a '{type(dt).__name__}'")
         
@@ -82,11 +82,11 @@ class datetime:
         if ts not in range(EPOC_MIN, EPOC_MAX+1):
             raise ValueError(f"'ts must be between '{EPOC_MIN}' and '{EPOC_MAX}', not '{ts}'")
             
-        return cls.from_datetime(cls.to_datetime(cls, ts))
+        return cls.from_real_time(cls.to_real_time(cls, ts))
     
     @classmethod
     def now(cls):
-        return cls.from_datetime(_dt.datetime.now())
+        return cls.from_real_time(_dt.datetime.now())
     
     @property
     def epoc_raw(self):
@@ -95,7 +95,7 @@ class datetime:
     def timestamp(self):
         return self.epoc_raw * 1e9
     
-    def to_datetime(self, epoc_raw=None):
+    def to_real_time(self, epoc_raw=None):
         if epoc_raw == None:
             epoc_raw = self.epoc_raw
         if not isinstance(epoc_raw, float) and not isinstance(epoc_raw, int):
