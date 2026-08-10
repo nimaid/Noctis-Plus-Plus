@@ -139,7 +139,11 @@ class ImageFontLabel(QWidget):
         painter = QPainter(self)
 
         for i, char in enumerate(self.text):
-            source_x = ord(char) * self.char_width
+            char_code = ord(char)
+            if char_code not in range(0, 128):
+                char_code = ord(" ")
+            
+            source_x = char_code * self.char_width
             source_y = 0
 
             source_rect = QRect(source_x, source_y, self.char_width, self.char_height)
