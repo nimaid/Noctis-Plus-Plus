@@ -389,8 +389,7 @@ class Manual(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = QLabel("COMING SOON")
-        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -426,8 +425,7 @@ class Chat(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = QLabel("COMING SOON")
-        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -463,8 +461,7 @@ class Map(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = QLabel("COMING SOON")
-        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -501,8 +498,7 @@ class Media(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = QLabel("COMING SOON")
-        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -538,8 +534,7 @@ class Calculator(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = QLabel("COMING SOON")
-        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -575,8 +570,7 @@ class Build(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = QLabel("COMING SOON")
-        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -613,8 +607,7 @@ class Data(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = QLabel("COMING SOON")
-        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -649,8 +642,7 @@ class Launch(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = QLabel("COMING SOON")
-        self.test.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignCenter)
+        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()

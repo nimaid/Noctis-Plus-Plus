@@ -98,10 +98,10 @@ class ImageLabel(QLabel):
 class ImageFontLabel(QWidget):
     def __init__(self,
                font_pixmap,
+               text=None,
                scale=1,
                spacing=1,
-               color=None,
-               default_text=None
+               color=None
                ):
         super(ImageFontLabel, self).__init__()
         if scale % 1 != 0:
@@ -120,8 +120,8 @@ class ImageFontLabel(QWidget):
         self.char_width = self.font_pixmap.width() // 128
         self.char_height = self.font_pixmap.height()
         
-        if default_text != None:
-            self.set_text(default_text)
+        if text != None:
+            self.set_text(text)
     
     def set_text(self, text):
         self.text = text
