@@ -34,7 +34,8 @@ class MyQMainWindow(QMainWindow):
         self.padding_px = 10
         self.clock_padding_px = 5
         self.button_padding_px = 10
-        self.pixel_font = QPixmap(constants.FONT_PATH)
+        self.noctis_font = QPixmap(constants.FONT_PATHS["noctis"])
+        self.main_font = QPixmap(constants.FONT_PATHS["legible"])
         self.pixel_scale = 3
 
         # Make main settings object
@@ -44,7 +45,7 @@ class MyQMainWindow(QMainWindow):
         self.setFixedSize(500, 350)
         
         # Declare clock elements
-        self.clock = widgets.ImageFontLabel(self.pixel_font, scale=self.pixel_scale, color=constants.COLORS["clock_text"])
+        self.clock = widgets.ImageFontLabel(self.noctis_font, scale=self.pixel_scale, color=constants.COLORS["clock_text"])
         self.update_clock()
 
         # Declare clock container
@@ -389,7 +390,7 @@ class Manual(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -425,7 +426,7 @@ class Chat(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -461,7 +462,7 @@ class Map(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -498,7 +499,7 @@ class Media(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -535,7 +536,7 @@ class Calculator(QDialog):
         
         # Declare test label
         self.test_string = "THE QUICK BROWN FOX\nJUMPS OVER THE LAZY\nDOG.\n\nthe quick brown fox\njumps over the lazy\ndog.\n\n`1234567890-=[]\\;',./\n~!@#$%^&*()_+{}|:\"<>?"
-        self.test = widgets.ImageFontLabel(self.parent().pixel_font, self.test_string, scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, self.test_string, scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -571,7 +572,7 @@ class Build(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -608,7 +609,7 @@ class Data(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -643,7 +644,7 @@ class Launch(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().pixel_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
