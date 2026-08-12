@@ -2,7 +2,7 @@ import os
 from PIL import Image
 from PyQt5.QtCore import Qt, QTimer, QSize
 from PyQt5.QtWidgets import (
-    QMainWindow, QWidget,
+    QMainWindow, QWidget, QTabWidget,
     QGridLayout, QHBoxLayout, QVBoxLayout,
     QLabel, QPushButton,
     QFileDialog, QAction, QSizePolicy,
@@ -532,25 +532,92 @@ class Calculator(QDialog):
         self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
         
         # Set window size restrictions
-        self.setFixedSize(300, 200)
+        self.setFixedSize(400, 300)
         
-        # Declare test label
-        self.test_string = "THE QUICK BROWN FOX\nJUMPS OVER THE\nLAZY DOG\n\nthe quick brown fox\njumps over the\nlazy dog\n\n`1234567890-=[]\\;',./\n~!@#$%^&*()_+{}|:\"<>?"
-        self.test = widgets.ImageFontLabel(
+        # ---- TABS START ----
+        
+        # Declare tab bar
+        self.tab_bar = QTabWidget()
+        self.tab_bar.setStyleSheet(f"""
+            QTabWidget > QWidget {{ 
+                background-color: {constants.COLORS["background"]}; 
+            }}
+            
+            QTabWidget::pane {{
+                border: 0;
+            }}
+            
+            QTabBar::tab {{
+                background-color: {constants.COLORS["tab_background"]};
+                color: {constants.COLORS["text"]};
+            }}
+            
+            QTabBar::tab:selected {{
+                background-color: {constants.COLORS["tab_foreground"]};
+            }}
+        """)
+        
+        # Declare tab variables
+        self.tabs = []
+        self.tab_layouts = []
+        
+        # -- TIME TAB --
+        
+        # Declare time tab
+        self.tabs.append(QWidget())
+        self.tab_bar.addTab(self.tabs[-1], "Time")
+        
+        # Declare time tab layout
+        self.tab_layouts.append(QGridLayout())
+        
+        # Declare time tab test labels
+        self.fox_label = widgets.ImageFontLabel(
             self.parent().main_font,
-            self.test_string,
+            "THE QUICK BROWN FOX\nJUMPS OVER THE\nLAZY DOG\n\nthe quick brown fox\njumps over the\nlazy dog\n\n`1234567890-=[]\\;',./\n~!@#$%^&*()_+{}|:\"<>?",
             align=constants.TextAlign.CENTERED,
             scale=self.parent().pixel_scale,
             color=constants.COLORS["text"]
         )
         
+        # Populate time tab layout
+        self.tab_layouts[-1].addWidget(self.fox_label, 0, 0)
+        
+        # Set the time tab layout
+        self.tabs[-1].setLayout(self.tab_layouts[-1])
+        
+        # -- DISTANCE TAB --
+        
+        # Declare distance tab
+        self.tabs.append(QWidget())
+        self.tab_bar.addTab(self.tabs[-1], "Distance")
+        
+        # Declare distance tab layout
+        self.tab_layouts.append(QGridLayout())
+        
+        # Declare distance tab test labels
+        self.alphabet_label = widgets.ImageFontLabel(
+            self.parent().main_font,
+            "3x5 Microfont by\nElla Jameson (nimaid)\n\nABCDEFGHIJKLM\nabcdefghijklm\n\nNOPQRSTUVWXYZ\nnopqrstuvwxyz\n\n`1234567890-=[]\\;',./\n~!@#$%^&*()_+{}|:\"<>?",
+            align=constants.TextAlign.CENTERED,
+            scale=self.parent().pixel_scale,
+            color=constants.COLORS["text"]
+        )
+        
+        # Populate distance tab layout
+        self.tab_layouts[-1].addWidget(self.alphabet_label, 0, 0)
+        
+        # Set the time tab layout
+        self.tabs[-1].setLayout(self.tab_layouts[-1])
+        
+        # ---- TABS END ---
+        
         # Declare main layout
-        self.main_layout = QGridLayout()
+        self.main_layout = QVBoxLayout()
         
         # Populate main layout
-        self.main_layout.addWidget(self.test, 0, 0)
+        self.main_layout.addWidget(self.tab_bar)
         
-        # Set the layout
+        # Set the main layout
         self.setLayout(self.main_layout)
         
     

@@ -55,6 +55,8 @@ COLORS = {
     "disabled_text": "#888888",
     "clock_background": "#2b2d30",
     "clock_text": "#9a9ba2",
+    "tab_background": "#2a2c30",
+    "tab_foreground": "#3d3f45",
 }
 
 # Define paths
