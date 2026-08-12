@@ -284,9 +284,9 @@ class MyQMainWindow(QMainWindow):
         
         match vertical:
             case constants.VerticalAlign.TOP:
-                y = main_geometry.y() - popup_geometry.height() - titlebar_height
+                y = main_geometry.y() - (popup_geometry.height() + titlebar_height)
             case constants.VerticalAlign.CENTER:
-                 y = round(main_geometry.y() - (popup_geometry.height() / 2) + (main_geometry.height() / 2))
+                 y = main_geometry.y() - round((popup_geometry.height() + titlebar_height - main_geometry.height()) / 2)
             case constants.VerticalAlign.BOTTOM:
                 y = main_geometry.y() + main_geometry.height()
         
