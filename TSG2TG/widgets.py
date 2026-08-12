@@ -8,6 +8,8 @@ from PyQt5.QtGui import QBrush, QColor, QPixmap, QPainter
 
 import helpers
 
+# ---- DISCRETE WIDGETS ----
+
 # Custom image-based button
 #   Allows for very fancy custom buttons
 class ImageButton(QAbstractButton):
@@ -93,7 +95,7 @@ class ImageLabel(QLabel):
         return QSize(self.width, self.height)
 
 
-# Custom label widget that uses a spritesheet-based font
+# Custom label widget that uses a sprite-sheet-based font
 #   Allows for custom image-based fonts to be used in labels
 class ImageFontLabel(QWidget):
     def __init__(self,
@@ -126,19 +128,36 @@ class ImageFontLabel(QWidget):
     def set_text(self, text):
         self.text = text
         
-        text_length = len(self.text)
-        self.setFixedSize((self.char_width * text_length) + (self.spacing * (text_length-1)), self.char_height)
+        text_width = 0
+        text_height = 0
+        for line in text.split("\n"):
+            line_width = len(line)
+            
+            if line_width > text_width:
+                text_width = line_width
+            
+            text_height += 1
+        
+        self.setFixedSize(
+            (self.char_width * text_width) + (self.spacing * (text_width-1)),
+            (self.char_height * text_height) + (self.spacing * (text_height-1))
+        )
         
         self.update()
     
     def paintEvent(self, event):
-        event_rect = event.rect()
-        x = event_rect.x()
-        y = event_rect.y()
+        x = event.rect().x()
+        y = event.rect().y()
         
         painter = QPainter(self)
 
         for i, char in enumerate(self.text):
+            if char == "\n":
+                x = event.rect().x()
+                y += self.char_height + self.spacing
+                
+                continue
+                
             char_code = ord(char)
             if char_code not in range(0, 128):
                 char_code = ord(" ")
@@ -272,3 +291,7 @@ class PhotoViewer(QGraphicsView):
                 self.fitInView()
             else:
                 self._zoom = 0
+
+# ---- TAB WIDGETS ----
+
+
