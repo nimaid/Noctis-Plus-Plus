@@ -261,7 +261,7 @@ class MyQMainWindow(QMainWindow):
         self.setCentralWidget(self.main_widget)
     
     def update_clock(self):
-        self.clock.set_text(feltime.datetime.now().strftime("EPOC %e & %t"))
+        self.clock.setText(feltime.datetime.now().strftime("EPOC %e & %t"))
     
     def position_popup(self, popup, horizontal, vertical):
         main_geometry = self.frameGeometry()

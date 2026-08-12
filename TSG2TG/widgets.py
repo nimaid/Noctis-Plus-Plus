@@ -97,16 +97,17 @@ class ImageLabel(QLabel):
 
 # Custom label widget that uses a sprite-sheet-based font
 #   Allows for custom image-based fonts to be used in labels
-class ImageFontLabel(QWidget):
+class ImageFontLabel(QLabel):
     def __init__(self,
                font_pixmap,
                text="",
                align=constants.TextAlign.FLUSH_LEFT,
                scale=1,
                spacing=1,
-               color=None
+               color=None,
+               parent=None
                ):
-        super(ImageFontLabel, self).__init__()
+        super(ImageFontLabel, self).__init__(parent)
         if scale % 1 != 0:
                 raise TypeError("ImageFontLabel requires an integer as a scaling factor")
         self.align = align
@@ -124,9 +125,9 @@ class ImageFontLabel(QWidget):
         self.char_width = self.font_pixmap.width() // 128
         self.char_height = self.font_pixmap.height()
         
-        self.set_text(text)
+        self.setText(text)
     
-    def set_text(self, text):
+    def setText(self, text):
         self.text = text
         
         if len(text) > 0:
