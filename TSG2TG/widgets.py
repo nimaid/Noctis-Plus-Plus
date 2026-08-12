@@ -100,7 +100,7 @@ class ImageLabel(QLabel):
 class ImageFontLabel(QWidget):
     def __init__(self,
                font_pixmap,
-               text=None,
+               text="",
                scale=1,
                spacing=1,
                color=None
@@ -122,15 +122,14 @@ class ImageFontLabel(QWidget):
         self.char_width = self.font_pixmap.width() // 128
         self.char_height = self.font_pixmap.height()
         
-        if text != None:
-            self.set_text(text)
+        self.set_text(text)
     
     def set_text(self, text):
         self.text = text
         
         text_width = 0
         text_height = 0
-        for line in text.split("\n"):
+        for line in self.text.split("\n"):
             line_width = len(line)
             
             if line_width > text_width:
@@ -146,34 +145,26 @@ class ImageFontLabel(QWidget):
         self.update()
     
     def paintEvent(self, event):
-        x = event.rect().x()
-        y = event.rect().y()
-        
         painter = QPainter(self)
-
-        for i, char in enumerate(self.text):
-            if char == "\n":
-                x = event.rect().x()
-                y += self.char_height + self.spacing
+        
+        for l, line in enumerate(self.text.split("\n")):
+            x = event.rect().x()
+            y = event.rect().x() + (l * (self.char_height + self.spacing))
+            
+            for c, char in enumerate(line):
+                char_code = ord(char)
+                if char_code not in range(0, 128):
+                    char_code = ord(" ")
                 
-                continue
+                source_x = char_code * self.char_width
+                source_y = 0
+
+                source_rect = QRect(source_x, source_y, self.char_width, self.char_height)
+                target_rect = QRect(x, y, self.char_width, self.char_height)
+
+                painter.drawPixmap(target_rect, self.font_pixmap, source_rect)
                 
-            char_code = ord(char)
-            if char_code not in range(0, 128):
-                char_code = ord(" ")
-            
-            source_x = char_code * self.char_width
-            source_y = 0
-
-            source_rect = QRect(source_x, source_y, self.char_width, self.char_height)
-            target_rect = QRect(x, y, self.char_width, self.char_height)
-
-            painter.drawPixmap(target_rect, self.font_pixmap, source_rect)
-            
-            x += self.char_width
-            
-            if i < len(self.text) - 1:
-                x += self.spacing
+                x += self.char_width + self.spacing
 
 
 # Custom seekbar class
