@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtGui import QBrush, QColor, QPixmap, QPainter
 
-import helpers
+import helpers, constants
 
 # ---- DISCRETE WIDGETS ----
 
@@ -101,6 +101,7 @@ class ImageFontLabel(QWidget):
     def __init__(self,
                font_pixmap,
                text="",
+               align=constants.TextAlign.FLUSH_LEFT,
                scale=1,
                spacing=1,
                color=None
@@ -108,6 +109,7 @@ class ImageFontLabel(QWidget):
         super(ImageFontLabel, self).__init__()
         if scale % 1 != 0:
                 raise TypeError("ImageFontLabel requires an integer as a scaling factor")
+        self.align = align
         self.scale = scale
         self.spacing = spacing * self.scale
         
@@ -127,29 +129,42 @@ class ImageFontLabel(QWidget):
     def set_text(self, text):
         self.text = text
         
-        text_width = 0
-        text_height = 0
-        for line in self.text.split("\n"):
-            line_width = len(line)
+        if len(text) > 0:
+            text_width = 0
+            text_height = 0
+            for line in self.text.split("\n"):
+                line_width = len(line)
+                
+                if line_width > text_width:
+                    text_width = line_width
+                
+                text_height += 1
             
-            if line_width > text_width:
-                text_width = line_width
-            
-            text_height += 1
+            x = (self.char_width * text_width) + (self.spacing * (text_width-1))
+            y = (self.char_height * text_height) + (self.spacing * (text_height-1))
+        else:
+            x = 0
+            y = 0
         
-        self.setFixedSize(
-            (self.char_width * text_width) + (self.spacing * (text_width-1)),
-            (self.char_height * text_height) + (self.spacing * (text_height-1))
-        )
+        self.setFixedSize(x, y)
         
         self.update()
+        
     
     def paintEvent(self, event):
         painter = QPainter(self)
         
         for l, line in enumerate(self.text.split("\n")):
+            line_width = (len(line) * (self.char_width + self.spacing)) - self.spacing
+            line_blank_space = self.width() - line_width
+            
             x = event.rect().x()
             y = event.rect().x() + (l * (self.char_height + self.spacing))
+            
+            if self.align == constants.TextAlign.FLUSH_RIGHT:
+                x += line_blank_space
+            elif self.align == constants.TextAlign.CENTERED:
+                x += line_blank_space // 2
             
             for c, char in enumerate(line):
                 char_code = ord(char)

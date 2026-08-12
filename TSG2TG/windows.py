@@ -535,8 +535,14 @@ class Calculator(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test_string = "THE QUICK BROWN FOX\nJUMPS OVER THE LAZY\nDOG.\n\nthe quick brown fox\njumps over the lazy\ndog.\n\n`1234567890-=[]\\;',./\n~!@#$%^&*()_+{}|:\"<>?"
-        self.test = widgets.ImageFontLabel(self.parent().main_font, self.test_string, scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test_string = "THE QUICK BROWN FOX\nJUMPS OVER THE\nLAZY DOG\n\nthe quick brown fox\njumps over the\nlazy dog\n\n`1234567890-=[]\\;',./\n~!@#$%^&*()_+{}|:\"<>?"
+        self.test = widgets.ImageFontLabel(
+            self.parent().main_font,
+            self.test_string,
+            align=constants.TextAlign.CENTERED,
+            scale=self.parent().pixel_scale,
+            color=constants.COLORS["text"]
+        )
         
         # Declare main layout
         self.main_layout = QGridLayout()

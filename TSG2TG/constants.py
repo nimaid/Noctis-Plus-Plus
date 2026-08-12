@@ -12,14 +12,19 @@ class PlatformCode(Enum):
     UNKNOWN = "unknown"
 
 class HorizontalAlign(Enum):
-        LEFT = "left"
-        CENTER = "hcenter"
-        RIGHT = "right"
+    LEFT = "left"
+    CENTER = "hcenter"
+    RIGHT = "right"
 
 class VerticalAlign(Enum):
-        TOP = "top"
-        CENTER = "vcenter"
-        BOTTOM = "bottom"
+    TOP = "top"
+    CENTER = "vcenter"
+    BOTTOM = "bottom"
+
+class TextAlign(Enum):
+    FLUSH_LEFT = "left"
+    CENTERED = "center"
+    FLUSH_RIGHT = "right"
 
 # Set platform dependent variables
 USER_DIR = os.path.expanduser("~")
