@@ -380,7 +380,7 @@ class Manual(QDialog):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"MANUAL READER")
+        self.setWindowTitle(f"Manual Reader")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -390,7 +390,7 @@ class Manual(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "Coming Soon", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -416,7 +416,7 @@ class Chat(QDialog):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"LIVE CHAT")
+        self.setWindowTitle(f"Live Chat")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -426,7 +426,7 @@ class Chat(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "Coming Soon", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -452,7 +452,7 @@ class Map(QDialog):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"MAP VIEWER")
+        self.setWindowTitle(f"Map Viewer")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -462,7 +462,7 @@ class Map(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "Coming Soon", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -489,7 +489,7 @@ class Media(QDialog):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"MEDIA CONVERTER")
+        self.setWindowTitle(f"Media Converter")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -499,7 +499,7 @@ class Media(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "Coming Soon", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -525,7 +525,7 @@ class Calculator(QDialog):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"CONVERTER CALCULATOR")
+        self.setWindowTitle(f"Converter Calculator")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -635,7 +635,7 @@ class Build(QDialog):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"NOCTIS BUILDER")
+        self.setWindowTitle(f"Noctis Builder")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -645,7 +645,7 @@ class Build(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "Coming Soon", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -672,7 +672,7 @@ class Data(QDialog):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"DATA MANAGER")
+        self.setWindowTitle(f"Data Manager")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -682,7 +682,7 @@ class Data(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "Coming Soon", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
@@ -707,7 +707,7 @@ class Launch(QDialog):
         super().__init__(parent=parent)
 
         # Setup window title and icon
-        self.setWindowTitle(f"NOCTIS LAUNCHER")
+        self.setWindowTitle(f"Noctis Launcher")
         self.setWindowIcon(QIcon(constants.ICON_PATH))
 
         # Hide "?" button
@@ -717,7 +717,7 @@ class Launch(QDialog):
         self.setFixedSize(300, 200)
         
         # Declare test label
-        self.test = widgets.ImageFontLabel(self.parent().main_font, "COMING SOON", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
+        self.test = widgets.ImageFontLabel(self.parent().main_font, "Coming Soon", scale=self.parent().pixel_scale, color=constants.COLORS["text"])
         
         # Declare main layout
         self.main_layout = QGridLayout()
