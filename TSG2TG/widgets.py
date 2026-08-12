@@ -108,11 +108,19 @@ class ImageFontLabel(QLabel):
                parent=None
                ):
         super(ImageFontLabel, self).__init__(parent)
+        
+        if font_pixmap.width() % 128 != 0:
+            raise Exception(f"ImageFontLabel requires a font image with a width divisible by 128. (input 'width': {font_pixmap.width()})")
+        
         if scale % 1 != 0:
-                raise TypeError("ImageFontLabel requires an integer as a scaling factor")
+                raise TypeError(f"ImageFontLabel requires an integer as a scaling factor (input 'scale': {scale})")
+        
         self.align = align
         self.scale = scale
-        self.spacing = spacing * self.scale
+        self.spacing = spacing
+        
+        if len(text) < 1:
+            text = " "
         
         scaled_font_pixmap = font_pixmap.scaled(font_pixmap.width() * self.scale, font_pixmap.height() * self.scale, Qt.KeepAspectRatio, Qt.FastTransformation)
         if color != None:  # Only change the color if it's specified
@@ -120,34 +128,23 @@ class ImageFontLabel(QLabel):
         else:
             self.font_pixmap = scaled_font_pixmap
         
-        if font_pixmap.width() % 128 != 0:
-            raise Exception(f"ImageFontLabel requires a font image with a width divisible by 128. (input width: {font_pixmap.width()})")
         self.char_width = self.font_pixmap.width() // 128
         self.char_height = self.font_pixmap.height()
         
         self.setText(text)
     
     def setText(self, text):
-        self.text = text
+        self.text=text
+        self.pixmap=helpers.render_image_font(
+            font_pixmap=self.font_pixmap,
+            text=self.text,
+            align=self.align,
+            scale=1,
+            spacing=self.spacing * self.scale,
+            color=None
+        )
         
-        if len(text) > 0:
-            text_width = 0
-            text_height = 0
-            for line in self.text.split("\n"):
-                line_width = len(line)
-                
-                if line_width > text_width:
-                    text_width = line_width
-                
-                text_height += 1
-            
-            x = (self.char_width * text_width) + (self.spacing * (text_width-1))
-            y = (self.char_height * text_height) + (self.spacing * (text_height-1))
-        else:
-            x = 0
-            y = 0
-        
-        self.setFixedSize(x, y)
+        self.setFixedSize(self.pixmap.width(), self.pixmap.height())
         
         self.update()
         
@@ -155,32 +152,7 @@ class ImageFontLabel(QLabel):
     def paintEvent(self, event):
         painter = QPainter(self)
         
-        for l, line in enumerate(self.text.split("\n")):
-            line_width = (len(line) * (self.char_width + self.spacing)) - self.spacing
-            line_blank_space = self.width() - line_width
-            
-            x = event.rect().x()
-            y = event.rect().x() + (l * (self.char_height + self.spacing))
-            
-            if self.align == constants.TextAlign.FLUSH_RIGHT:
-                x += line_blank_space
-            elif self.align == constants.TextAlign.CENTERED:
-                x += line_blank_space // 2
-            
-            for c, char in enumerate(line):
-                char_code = ord(char)
-                if char_code not in range(0, 128):
-                    char_code = ord(" ")
-                
-                source_x = char_code * self.char_width
-                source_y = 0
-
-                source_rect = QRect(source_x, source_y, self.char_width, self.char_height)
-                target_rect = QRect(x, y, self.char_width, self.char_height)
-
-                painter.drawPixmap(target_rect, self.font_pixmap, source_rect)
-                
-                x += self.char_width + self.spacing
+        painter.drawPixmap(0, 0, self.pixmap)
 
 
 # Custom seekbar class
