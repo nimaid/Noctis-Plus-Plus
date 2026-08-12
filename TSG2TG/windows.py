@@ -543,6 +543,7 @@ class Calculator(QDialog):
         # Declare window variables
         self.pixel_scale = self.parent().pixel_scale
         self.font = self.parent().main_font
+        self.tab_padding_px = 4
         
         # Setup window title and icon
         self.setWindowTitle(f"Converter Calculator")
@@ -569,11 +570,14 @@ class Calculator(QDialog):
             
             QTabBar::tab {{
                 background-color: {constants.COLORS["tab_background"]};
+                border: 1px solid transparent;
                 color: {constants.COLORS["text"]};
+                padding: {self.tab_padding_px}px;
             }}
             
             QTabBar::tab:selected {{
                 background-color: {constants.COLORS["tab_foreground"]};
+                border: 1px solid {constants.COLORS["tab_active_border"]};
             }}
         """)
         
