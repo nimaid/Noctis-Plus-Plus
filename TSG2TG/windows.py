@@ -553,7 +553,7 @@ class Calculator(QDialog):
         self.setWindowFlags(self.windowFlags() ^ Qt.WindowContextHelpButtonHint)
         
         # Set window size restrictions
-        self.setFixedSize(400, 300)
+        self.setFixedSize(450, 300)
         
         # ---- TABS START ----
         
@@ -595,16 +595,16 @@ class Calculator(QDialog):
         self.tab_layouts.append(QGridLayout())
         
         # Declare time tab test labels
-        self.fox_label = widgets.ImageFontLabel(
+        self.alphabet_label = widgets.ImageFontLabel(
             self.font,
-            "THE QUICK BROWN FOX\nJUMPS OVER THE\nLAZY DOG\n\nthe quick brown fox\njumps over the\nlazy dog\n\n`1234567890-=[]\\;',./\n~!@#$%^&*()_+{}|:\"<>?",
+            "3x5 Microfont by\nElla Jameson (nimaid)\n\nABCDEFGHIJKLM\nabcdefghijklm\n\nNOPQRSTUVWXYZ\nnopqrstuvwxyz\n\n`1234567890-=[]\\;',./\n~!@#$%^&*()_+{}|:\"<>?",
             align=constants.TextAlign.CENTERED,
             scale=self.pixel_scale,
             color=constants.COLORS["text"]
         )
         
         # Populate time tab layout
-        self.tab_layouts[-1].addWidget(self.fox_label, 0, 0)
+        self.tab_layouts[-1].addWidget(self.alphabet_label, 0, 0)
         
         # Set the time tab layout
         self.tabs[-1].setLayout(self.tab_layouts[-1])
@@ -619,18 +619,114 @@ class Calculator(QDialog):
         self.tab_layouts.append(QGridLayout())
         
         # Declare distance tab test labels
-        self.alphabet_label = widgets.ImageFontLabel(
+        self.fox_label = widgets.ImageFontLabel(
             self.font,
-            "3x5 Microfont by\nElla Jameson (nimaid)\n\nABCDEFGHIJKLM\nabcdefghijklm\n\nNOPQRSTUVWXYZ\nnopqrstuvwxyz\n\n`1234567890-=[]\\;',./\n~!@#$%^&*()_+{}|:\"<>?",
+            "THE QUICK BROWN FOX\nJUMPS OVER THE\nLAZY DOG\n\nthe quick brown fox\njumps over the\nlazy dog",
             align=constants.TextAlign.CENTERED,
             scale=self.pixel_scale,
             color=constants.COLORS["text"]
         )
         
         # Populate distance tab layout
-        self.tab_layouts[-1].addWidget(self.alphabet_label, 0, 0)
+        self.tab_layouts[-1].addWidget(self.fox_label, 0, 0)
         
-        # Set the time tab layout
+        # Set the distance tab layout
+        self.tabs[-1].setLayout(self.tab_layouts[-1])
+        
+        # -- GRAVITY TAB --
+        
+        # Declare gravity tab
+        self.tabs.append(QWidget())
+        self.tab_bar.addTab(self.tabs[-1], "Gravity")
+        
+        # Declare gravity tab layout
+        self.tab_layouts.append(QGridLayout())
+        
+        # Declare gravity tab test labels
+        self.toowise_label = widgets.ImageFontLabel(
+            self.font,
+            "YYURYYUBICURYY4ME",
+            align=constants.TextAlign.CENTERED,
+            scale=self.pixel_scale,
+            color=constants.COLORS["text"]
+        )
+        
+        # Populate gravity tab layout
+        self.tab_layouts[-1].addWidget(self.toowise_label, 0, 0)
+        
+        # Set the gravity tab layout
+        self.tabs[-1].setLayout(self.tab_layouts[-1])
+        
+        # -- TEMPERATURE TAB --
+        
+        # Declare temperature tab
+        self.tabs.append(QWidget())
+        self.tab_bar.addTab(self.tabs[-1], "Temperature")
+        
+        # Declare temperature tab layout
+        self.tab_layouts.append(QGridLayout())
+        
+        # Declare temperature tab test labels
+        self.code_label = widgets.ImageFontLabel(
+            self.font,
+            "#include <stdio.h>\n\nint main() {\n    printf(\"EAT PANT\");\n    \n    return 0;\n}",
+            align=constants.TextAlign.FLUSH_LEFT,
+            scale=self.pixel_scale,
+            color=constants.COLORS["text"]
+        )
+        
+        # Populate temperature tab layout
+        self.tab_layouts[-1].addWidget(self.code_label, 0, 0)
+        
+        # Set the temperature tab layout
+        self.tabs[-1].setLayout(self.tab_layouts[-1])
+        
+        # -- PRESSURE TAB --
+        
+        # Declare pressure tab
+        self.tabs.append(QWidget())
+        self.tab_bar.addTab(self.tabs[-1], "Pressure")
+        
+        # Declare pressure tab layout
+        self.tab_layouts.append(QGridLayout())
+        
+        # Declare pressure tab test labels
+        self.poem_label = widgets.ImageFontLabel(
+            self.font,
+            "I met a traveller from an antique land\nWho said: Two vast and trunkless legs of stone\nStand in the desert. Near them, on the sand,\nHalf sunk, a shattered visage lies, whose frown,\nAnd wrinkled lip, and sneer of cold command,\nTell that its sculptor well those passions read\nWhich yet survive, stamped on these lifeless things,\nThe hand that mocked them and the heart that fed:\nAnd on the pedestal these words appear:\n\"My name is Ozymandias, king of kings:\nLook on my works, ye Mighty, and despair!\"\nNothing beside remains. Round the decay\nOf that colossal wreck, boundless and bare\nThe lone and level sands stretch far away.",
+            align=constants.TextAlign.FLUSH_LEFT,
+            scale=2,
+            color=constants.COLORS["text"]
+        )
+        
+        # Populate pressure tab layout
+        self.tab_layouts[-1].addWidget(self.poem_label, 0, 0)
+        
+        # Set the pressure tab layout
+        self.tabs[-1].setLayout(self.tab_layouts[-1])
+        
+        # -- PULSE TAB --
+        
+        # Declare pulse tab
+        self.tabs.append(QWidget())
+        self.tab_bar.addTab(self.tabs[-1], "Pulse")
+        
+        # Declare pulse tab layout
+        self.tab_layouts.append(QGridLayout())
+        
+        # Declare pulse tab test labels
+        self.logo_label = widgets.ImageFontLabel(
+            self.font,
+            "   by __      __\n     /  \\    /  \\\n    / /\\ \\  / /\\ \\\n   /  \\X\\ \\ \\ \\X\\ \\\n  / /\\ \\X\\ \\ \\ \\X\\ \\\n / /X/  \\X\\ \\ \\ \\X\\ \\\n/ /X/ /\\ \\X\\ \\ \\ \\X\\ \\\n\\ \\X\\ \\ \\ \\X\\ \\/ /X/ /\n \\ \\X\\ \\ \\ \\X\\  /X/ /\n  \\ \\X\\ \\ \\ \\X\\ \\/ /\n   \\ \\X\\ \\ \\ \\X\\  /\n    \\ \\/ /  \\ \\/ /\n     \\__/    \\__/imaid",
+            align=constants.TextAlign.FLUSH_LEFT,
+            scale=self.pixel_scale,
+            color=constants.COLORS["text"]
+        )
+        
+        # Populate pulse tab layout
+        self.tab_layouts[-1].addWidget(self.logo_label, 0, 0)
+        
+        # Set the pulse tab layout
         self.tabs[-1].setLayout(self.tab_layouts[-1])
         
         # ---- TABS END ---
