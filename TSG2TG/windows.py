@@ -570,7 +570,7 @@ class Calculator(QDialog):
             
             QTabBar::tab {{
                 background-color: {constants.COLORS["tab_background"]};
-                border: 1px solid transparent;
+                border: 1px solid {constants.COLORS["tab_inactive_border"]};
                 color: {constants.COLORS["text"]};
                 padding: {self.tab_padding_px}px;
             }}
