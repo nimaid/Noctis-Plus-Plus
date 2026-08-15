@@ -14,10 +14,16 @@ class MainWindow:
         # Apply dark mode on Windows systems
         if constants.PLATFORM == constants.PlatformCode.WINDOWS:
             os.environ["QT_QPA_PLATFORM"] = "windows:darkmode=1"
-
+        
+        # Force font DPI to 96
+        os.environ["QT_FONT_DPI"] = "96"
+        QApplication.setAttribute(Qt.AA_DisableHighDpiScaling, True)
+        
         # Make main objects
         self.app = QApplication(qt_args)
         self.window = windows.MyQMainWindow()
+        
+        
         
         # Setup colors
         self.app.setStyle("fusion")

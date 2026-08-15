@@ -11,7 +11,8 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtGui import (
     QPixmap, QIcon,
-    QColor, QFont
+    QColor, QFont,
+    QFontDatabase
 )
 
 import constants, helpers, widgets, settings
@@ -34,10 +35,42 @@ class MyQMainWindow(QMainWindow):
         self.padding_px = 10
         self.clock_padding_px = 5
         self.button_padding_px = 10
-        self.noctis_font = QPixmap(constants.FONT_PATHS["noctis"])
-        self.main_font = QPixmap(constants.FONT_PATHS["legible"])
+        self.noctis_font = QPixmap(constants.IMAGE_FONT_PATHS["noctis"])
+        self.font = QPixmap(constants.IMAGE_FONT_PATHS["microfont"])
         self.pixel_scale = 3
-
+        
+        # Setup TrueType fonts
+        ttf_height = 8 
+        ttf_size = ttf_height* self.pixel_scale
+        ttf_mono_id = QFontDatabase.addApplicationFont(constants.TRUETYPE_FONT_PATHS["microfont_mono"])
+        ttf_mono_name = QFontDatabase.applicationFontFamilies(ttf_mono_id)[0]
+        ttf_mono = QFont(ttf_mono_name)
+        #ttf_mono.setStyleStrategy(QFont.NoAntialias)
+        ttf_mono.setPixelSize(ttf_size)
+        ttf_regular_id = QFontDatabase.addApplicationFont(constants.TRUETYPE_FONT_PATHS["microfont"])
+        ttf_regular_name = QFontDatabase.applicationFontFamilies(ttf_regular_id)[0]
+        ttf_regular = QFont(ttf_regular_name)
+        #ttf_regular.setStyleStrategy(QFont.NoAntialias)
+        ttf_regular.setPixelSize(ttf_size)
+        self.font_ttf = {
+            "mono": {
+                "font": ttf_mono,
+                "id": ttf_mono_id,
+                "name": ttf_mono_name,
+                "height": ttf_height,
+                "size": ttf_size,
+                "scale": self.pixel_scale
+            },
+            "regular": {
+                "font": ttf_regular,
+                "id": ttf_regular_id,
+                "name": ttf_regular_name,
+                "height": ttf_height,
+                "size": ttf_size,
+                "scale": self.pixel_scale
+            }
+        }
+        
         # Make main settings object
         self.settings = settings.Settings()
 
@@ -381,7 +414,7 @@ class Manual(QDialog):
         
         # Declare window variables
         self.pixel_scale = self.parent().pixel_scale
-        self.font = self.parent().main_font
+        self.font = self.parent().font
         
         # Setup window title and icon
         self.setWindowTitle(f"Manual Reader")
@@ -421,7 +454,7 @@ class Chat(QDialog):
         
         # Declare window variables
         self.pixel_scale = self.parent().pixel_scale
-        self.font = self.parent().main_font
+        self.font = self.parent().font
         
         # Setup window title and icon
         self.setWindowTitle(f"Live Chat")
@@ -461,7 +494,7 @@ class Map(QDialog):
         
         # Declare window variables
         self.pixel_scale = self.parent().pixel_scale
-        self.font = self.parent().main_font
+        self.font = self.parent().font
         
         # Setup window title and icon
         self.setWindowTitle(f"Map Viewer")
@@ -502,7 +535,7 @@ class Media(QDialog):
         
         # Declare window variables
         self.pixel_scale = self.parent().pixel_scale
-        self.font = self.parent().main_font
+        self.font = self.parent().font
         
         # Setup window title and icon
         self.setWindowTitle(f"Media Converter")
@@ -542,7 +575,8 @@ class Calculator(QDialog):
         
         # Declare window variables
         self.pixel_scale = self.parent().pixel_scale
-        self.font = self.parent().main_font
+        self.font = self.parent().font
+        self.font_ttf = self.parent().font_ttf["regular"]
         self.tab_padding_px = 4
         
         # Setup window title and icon
@@ -570,16 +604,19 @@ class Calculator(QDialog):
             
             QTabBar::tab {{
                 background-color: {constants.COLORS["tab_background"]};
-                border: 1px solid {constants.COLORS["tab_inactive_border"]};
+                border: {self.font_ttf["scale"]}px solid {constants.COLORS["tab_inactive_border"]};
                 color: {constants.COLORS["text"]};
-                padding: {self.tab_padding_px}px;
+                padding: {self.tab_padding_px - self.font_ttf["scale"]}px {self.tab_padding_px - self.font_ttf["scale"]}px {self.tab_padding_px}px {self.tab_padding_px}px;
             }}
             
             QTabBar::tab:selected {{
                 background-color: {constants.COLORS["tab_foreground"]};
-                border: 1px solid {constants.COLORS["tab_active_border"]};
+                border: {self.font_ttf["scale"]}px solid {constants.COLORS["tab_active_border"]};
             }}
         """)
+        
+        # Set tab font
+        self.tab_bar.setFont(self.font_ttf["font"])
         
         # Declare tab variables
         self.tabs = []
@@ -613,7 +650,7 @@ class Calculator(QDialog):
         
         # Declare distance tab
         self.tabs.append(QWidget())
-        self.tab_bar.addTab(self.tabs[-1], "Distance")
+        self.tab_bar.addTab(self.tabs[-1], "Dist.")
         
         # Declare distance tab layout
         self.tab_layouts.append(QGridLayout())
@@ -637,7 +674,7 @@ class Calculator(QDialog):
         
         # Declare gravity tab
         self.tabs.append(QWidget())
-        self.tab_bar.addTab(self.tabs[-1], "Gravity")
+        self.tab_bar.addTab(self.tabs[-1], "Grav.")
         
         # Declare gravity tab layout
         self.tab_layouts.append(QGridLayout())
@@ -661,7 +698,7 @@ class Calculator(QDialog):
         
         # Declare temperature tab
         self.tabs.append(QWidget())
-        self.tab_bar.addTab(self.tabs[-1], "Temperature")
+        self.tab_bar.addTab(self.tabs[-1], "Temp.")
         
         # Declare temperature tab layout
         self.tab_layouts.append(QGridLayout())
@@ -685,7 +722,7 @@ class Calculator(QDialog):
         
         # Declare pressure tab
         self.tabs.append(QWidget())
-        self.tab_bar.addTab(self.tabs[-1], "Pressure")
+        self.tab_bar.addTab(self.tabs[-1], "Press.")
         
         # Declare pressure tab layout
         self.tab_layouts.append(QGridLayout())
@@ -756,7 +793,7 @@ class Build(QDialog):
         
         # Declare window variables
         self.pixel_scale = self.parent().pixel_scale
-        self.font = self.parent().main_font
+        self.font = self.parent().font
         
         # Setup window title and icon
         self.setWindowTitle(f"Noctis Builder")
@@ -797,7 +834,7 @@ class Data(QDialog):
         
         # Declare window variables
         self.pixel_scale = self.parent().pixel_scale
-        self.font = self.parent().main_font
+        self.font = self.parent().font
         
         # Setup window title and icon
         self.setWindowTitle(f"Data Manager")
@@ -836,7 +873,7 @@ class Launch(QDialog):
         
         # Declare window variables
         self.pixel_scale = self.parent().pixel_scale
-        self.font = self.parent().main_font
+        self.font = self.parent().font
         
         # Setup window title and icon
         self.setWindowTitle(f"Noctis Launcher")

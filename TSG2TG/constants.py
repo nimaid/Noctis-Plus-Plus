@@ -101,7 +101,11 @@ BUTTON_ICON_PATHS = {
         "down": os.path.join(RESOURCE_PATH, "button_media_down.png"),
     },
 }
-FONT_PATHS = {
+IMAGE_FONT_PATHS = {
     "noctis": os.path.join(RESOURCE_PATH, "font_noctis.png"),
-    "legible": os.path.join(RESOURCE_PATH, "font_legible.png"),
+    "microfont": os.path.join(RESOURCE_PATH, "microfont", "Microfont_1D.png"),
+}
+TRUETYPE_FONT_PATHS = {
+    "microfont": os.path.join(RESOURCE_PATH, "microfont", "Microfont.ttf"),
+    "microfont_mono": os.path.join(RESOURCE_PATH, "microfont", "Microfont-Mono.ttf"),
 }
