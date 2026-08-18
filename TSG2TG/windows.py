@@ -121,113 +121,22 @@ class MyQMainWindow(QMainWindow):
             parent=self
         )
         
-        # Declare button icons
-        BUTTON_ICONS = {
-            "build": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["build"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["build"]["down"]),
-            },
-            "calculator": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["calculator"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["calculator"]["down"]),
-            },
-            "chat": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["chat"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["chat"]["down"]),
-            },
-            "launch": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["launch"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["launch"]["down"]),
-            },
-            "map": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["map"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["map"]["down"]),
-            },
-            "media": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["media"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["media"]["down"]),
-            },
-            "manual": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["manual"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["manual"]["down"]),
-            },
-            "data": {
-                "up": QPixmap(constants.BUTTON_ICON_PATHS["data"]["up"]),
-                "down": QPixmap(constants.BUTTON_ICON_PATHS["data"]["down"]),
-            },
-        }
-        
         # Declare buttons
-        self.manual_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["manual"]["up"],
-            pixmap_hover=BUTTON_ICONS["manual"]["up"],
-            pixmap_pressed=BUTTON_ICONS["manual"]["down"],
+        self.launch_button = widgets.RetroImageButton(
+            button_color="red",
+            font_pixmap=self.font,
+            text="NOCTIS\nLAUNCHER",
             scale=self.pixel_scale,
             parent=self
         )
-        self.manual_button.setFocusPolicy(Qt.NoFocus)
-        self.manual_button.setFixedSize(self.manual_button.width, self.manual_button.height)
-        self.manual_button.pressed.connect(self.manual)
+        self.launch_button.setFocusPolicy(Qt.NoFocus)
+        self.launch_button.setFixedSize(self.launch_button.width, self.launch_button.height)
+        self.launch_button.pressed.connect(self.launch)
         
-        self.chat_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["chat"]["up"],
-            pixmap_hover=BUTTON_ICONS["chat"]["up"],
-            pixmap_pressed=BUTTON_ICONS["chat"]["down"],
-            scale=self.pixel_scale,
-            parent=self
-        )
-        self.chat_button.setFocusPolicy(Qt.NoFocus)
-        self.chat_button.setFixedSize(self.chat_button.width, self.chat_button.height)
-        self.chat_button.pressed.connect(self.chat)
-        
-        self.map_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["map"]["up"],
-            pixmap_hover=BUTTON_ICONS["map"]["up"],
-            pixmap_pressed=BUTTON_ICONS["map"]["down"],
-            scale=self.pixel_scale,
-            parent=self
-        )
-        self.map_button.setFocusPolicy(Qt.NoFocus)
-        self.map_button.setFixedSize(self.map_button.width, self.map_button.height)
-        self.map_button.pressed.connect(self.map)
-        
-        self.media_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["media"]["up"],
-            pixmap_hover=BUTTON_ICONS["media"]["up"],
-            pixmap_pressed=BUTTON_ICONS["media"]["down"],
-            scale=self.pixel_scale,
-            parent=self
-        )
-        self.media_button.setFocusPolicy(Qt.NoFocus)
-        self.media_button.setFixedSize(self.media_button.width, self.media_button.height)
-        self.media_button.pressed.connect(self.media)
-        
-        self.calculator_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["calculator"]["up"],
-            pixmap_hover=BUTTON_ICONS["calculator"]["up"],
-            pixmap_pressed=BUTTON_ICONS["calculator"]["down"],
-            scale=self.pixel_scale,
-            parent=self
-        )
-        self.calculator_button.setFocusPolicy(Qt.NoFocus)
-        self.calculator_button.setFixedSize(self.calculator_button.width, self.calculator_button.height)
-        self.calculator_button.pressed.connect(self.calculator)
-        
-        self.build_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["build"]["up"],
-            pixmap_hover=BUTTON_ICONS["build"]["up"],
-            pixmap_pressed=BUTTON_ICONS["build"]["down"],
-            scale=self.pixel_scale,
-            parent=self
-        )
-        self.build_button.setFocusPolicy(Qt.NoFocus)
-        self.build_button.setFixedSize(self.build_button.width, self.build_button.height)
-        self.build_button.pressed.connect(self.build)
-        
-        self.data_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["data"]["up"],
-            pixmap_hover=BUTTON_ICONS["data"]["up"],
-            pixmap_pressed=BUTTON_ICONS["data"]["down"],
+        self.data_button = widgets.RetroImageButton(
+            button_color="orange",
+            font_pixmap=self.font,
+            text="DATA\nMANAGER",
             scale=self.pixel_scale,
             parent=self
         )
@@ -235,16 +144,71 @@ class MyQMainWindow(QMainWindow):
         self.data_button.setFixedSize(self.data_button.width, self.data_button.height)
         self.data_button.pressed.connect(self.data)
         
-        self.launch_button = widgets.ImageButton(
-            pixmap=BUTTON_ICONS["launch"]["up"],
-            pixmap_hover=BUTTON_ICONS["launch"]["up"],
-            pixmap_pressed=BUTTON_ICONS["launch"]["down"],
+        self.build_button = widgets.RetroImageButton(
+            button_color="yellow",
+            font_pixmap=self.font,
+            text="NOCTIS\nBUILDER",
             scale=self.pixel_scale,
             parent=self
         )
-        self.launch_button.setFocusPolicy(Qt.NoFocus)
-        self.launch_button.setFixedSize(self.launch_button.width, self.launch_button.height)
-        self.launch_button.pressed.connect(self.launch)
+        self.build_button.setFocusPolicy(Qt.NoFocus)
+        self.build_button.setFixedSize(self.build_button.width, self.build_button.height)
+        self.build_button.pressed.connect(self.build)
+        
+        self.media_button = widgets.RetroImageButton(
+            button_color="green",
+            font_pixmap=self.font,
+            text="MEDIA\nCONVERTER",
+            scale=self.pixel_scale,
+            parent=self
+        )
+        self.media_button.setFocusPolicy(Qt.NoFocus)
+        self.media_button.setFixedSize(self.media_button.width, self.media_button.height)
+        self.media_button.pressed.connect(self.media)
+        
+        self.manual_button = widgets.RetroImageButton(
+            button_color="cyan",
+            font_pixmap=self.font,
+            text="MANUAL\nREADER",
+            scale=self.pixel_scale,
+            parent=self
+        )
+        self.manual_button.setFocusPolicy(Qt.NoFocus)
+        self.manual_button.setFixedSize(self.manual_button.width, self.manual_button.height)
+        self.manual_button.pressed.connect(self.manual)
+        
+        self.chat_button = widgets.RetroImageButton(
+            button_color="blue",
+            font_pixmap=self.font,
+            text="LIVE\nCHAT",
+            scale=self.pixel_scale,
+            parent=self
+        )
+        self.chat_button.setFocusPolicy(Qt.NoFocus)
+        self.chat_button.setFixedSize(self.chat_button.width, self.chat_button.height)
+        self.chat_button.pressed.connect(self.chat)
+        
+        self.map_button = widgets.RetroImageButton(
+            button_color="purple",
+            font_pixmap=self.font,
+            text="MAP\nVIEWER",
+            scale=self.pixel_scale,
+            parent=self
+        )
+        self.map_button.setFocusPolicy(Qt.NoFocus)
+        self.map_button.setFixedSize(self.map_button.width, self.map_button.height)
+        self.map_button.pressed.connect(self.map)
+        
+        self.calculator_button = widgets.RetroImageButton(
+            button_color="magenta",
+            font_pixmap=self.font,
+            text="CONVERTER\nCALCULATOR",
+            scale=self.pixel_scale,
+            parent=self
+        )
+        self.calculator_button.setFocusPolicy(Qt.NoFocus)
+        self.calculator_button.setFixedSize(self.calculator_button.width, self.calculator_button.height)
+        self.calculator_button.pressed.connect(self.calculator)
         
         # Declare button area
         self.button_area = QGridLayout()

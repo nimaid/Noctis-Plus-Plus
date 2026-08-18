@@ -38,13 +38,22 @@ def image_to_pixmap(image):
 def pixmap_alpha_colorfill(pixmap, color):
     output_pixmap = QPixmap(pixmap)
     
-    painter = QPainter(output_pixmap)
-    
-    painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
-    painter.fillRect(output_pixmap.rect(), QColor(color))
-    painter.end()
+    with QPainter(output_pixmap) as painter:
+        painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+        painter.fillRect(output_pixmap.rect(), QColor(color))
     
     return output_pixmap
+
+
+# Pastes a transparent foreground QPixmap onto a background QPixmap
+def paste_pixmap_alpha(background, foreground, position):
+    with QPainter(background) as painter:
+        source_rect = QRect(0, 0, foreground.width(), foreground.height())
+        target_rect = QRect(position[0], position[1], foreground.width(), foreground.height())
+
+        painter.drawPixmap(target_rect, foreground, source_rect)
+    
+    return background
 
 
 # Renders text with an image font QPixmap into an output QPixmap
@@ -87,33 +96,33 @@ def render_image_font(font_pixmap,
     
     pixmap = QPixmap(width, height)
     pixmap.fill(Qt.transparent)
-    painter = QPainter(pixmap)
     
-    for l, line in enumerate(text.split("\n")):
-        line_width = (len(line) * (char_width + spacing)) - spacing
-        line_blank_space = width - line_width
-        
-        x = 0
-        y = l * (char_height + spacing)
-        
-        if align == constants.TextAlign.FLUSH_RIGHT:
-            x += line_blank_space
-        elif align == constants.TextAlign.CENTERED:
-            x += line_blank_space // 2
-        
-        for c, char in enumerate(line):
-            char_code = ord(char)
-            if char_code not in range(0, 128):
-                char_code = ord(" ")
+    with QPainter(pixmap) as painter:
+        for l, line in enumerate(text.split("\n")):
+            line_width = (len(line) * (char_width + spacing)) - spacing
+            line_blank_space = width - line_width
             
-            source_x = char_code * char_width
-            source_y = 0
-
-            source_rect = QRect(source_x, source_y, char_width, char_height)
-            target_rect = QRect(x, y, char_width, char_height)
-
-            painter.drawPixmap(target_rect, font_pixmap, source_rect)
+            x = 0
+            y = l * (char_height + spacing)
             
-            x += char_width + spacing
+            if align == constants.TextAlign.FLUSH_RIGHT:
+                x += line_blank_space
+            elif align == constants.TextAlign.CENTERED:
+                x += line_blank_space // 2
+            
+            for c, char in enumerate(line):
+                char_code = ord(char)
+                if char_code not in range(0, 128):
+                    char_code = ord(" ")
+                
+                source_x = char_code * char_width
+                source_y = 0
+
+                source_rect = QRect(source_x, source_y, char_width, char_height)
+                target_rect = QRect(x, y, char_width, char_height)
+
+                painter.drawPixmap(target_rect, font_pixmap, source_rect)
+                
+                x += char_width + spacing
     
     return pixmap

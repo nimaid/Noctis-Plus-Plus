@@ -72,6 +72,65 @@ class ImageButton(QAbstractButton):
         return QSize(self.width, self.height)
 
 
+# Custom image-based 8-bit button
+#   Allows for easily making 8-bit buttons with text
+class RetroImageButton(ImageButton):
+    def __init__(self,
+                 button_color,
+                 font_pixmap,
+                 text,
+                 align=constants.TextAlign.CENTERED,
+                 scale=1,
+                 spacing=1,
+                 label_adjust_up=constants.BUTTON_LABEL_ADJUST["up"],
+                 label_adjust_down=constants.BUTTON_LABEL_ADJUST["down"],
+                 color=constants.COLORS["button_text"],
+                 parent=None
+                 ):
+        self.button_color = button_color
+        self.font_pixmap = font_pixmap
+        self.text = text
+        self.align = align
+        self.scale = scale
+        self.spacing = spacing
+        self.color = color
+        
+        pixmap_up = QPixmap(constants.BUTTON_ICON_PATHS[self.button_color]["up"])
+        pixmap_down = QPixmap(constants.BUTTON_ICON_PATHS[self.button_color]["down"])
+        
+        label = helpers.render_image_font(
+            font_pixmap=self.font_pixmap,
+            text=self.text,
+            align=self.align,
+            scale=1,
+            spacing=self.spacing,
+            color=self.color
+        )
+        
+        center_x = (pixmap_up.width() - label.width()) // 2
+        center_y = (pixmap_up.height() - label.height()) // 2
+        
+        self.pixmap_up = helpers.paste_pixmap_alpha(
+            background=pixmap_up,
+            foreground=label,
+            position=(center_x + label_adjust_up[0], center_y + label_adjust_up[1])
+        )
+        
+        self.pixmap_down = helpers.paste_pixmap_alpha(
+            background=pixmap_down,
+            foreground=label,
+            position=(center_x + label_adjust_down[0], center_y + label_adjust_down[1])
+        )
+        
+        super(RetroImageButton, self).__init__(
+            pixmap=self.pixmap_up,
+            pixmap_hover=self.pixmap_up,
+            pixmap_pressed=self.pixmap_down,
+            scale=self.scale,
+            parent=parent
+        )
+
+
 # Custom image-based label
 #   Allows for very fancy custom labels
 class ImageLabel(QLabel):
@@ -270,7 +329,3 @@ class PhotoViewer(QGraphicsView):
                 self.fitInView()
             else:
                 self._zoom = 0
-
-# ---- TAB WIDGETS ----
-
-

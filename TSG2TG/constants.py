@@ -48,7 +48,7 @@ COLORS = {
     "background": "#1e1f22",
     "foreground": "#333333",
     "text": "#dddddd",
-    "button-text": "#ffffff",
+    "button_text": "#ffffff",
     "viewer": "#18191b",
     "link": "#dddddd",
     "disabled": "#555555",
@@ -62,44 +62,48 @@ COLORS = {
 }
 
 # Define paths
-PATH = os.path.dirname(Path(__file__).resolve())
+PATH = Path(__file__).parent.resolve()
 RESOURCE_PATH = os.path.join(PATH, "resources")
 
 ICON_PATH = os.path.join(RESOURCE_PATH, "icon.png")
 PANIC_ICON_PATH = os.path.join(RESOURCE_PATH, "panic.png")
 BUTTON_ICON_PATHS = {
-    "build": {
-        "up": os.path.join(RESOURCE_PATH, "button_build_up.png"),
-        "down": os.path.join(RESOURCE_PATH, "button_build_down.png"),
+    "red": {
+        "up": os.path.join(RESOURCE_PATH, "button00.png"),
+        "down": os.path.join(RESOURCE_PATH, "button01.png"),
     },
-    "calculator": {
-        "up": os.path.join(RESOURCE_PATH, "button_calc_up.png"),
-        "down": os.path.join(RESOURCE_PATH, "button_calc_down.png"),
+    "orange": {
+        "up": os.path.join(RESOURCE_PATH, "button02.png"),
+        "down": os.path.join(RESOURCE_PATH, "button03.png"),
     },
-    "chat": {
-        "up": os.path.join(RESOURCE_PATH, "button_chat_up.png"),
-        "down": os.path.join(RESOURCE_PATH, "button_chat_down.png"),
+    "yellow": {
+        "up": os.path.join(RESOURCE_PATH, "button04.png"),
+        "down": os.path.join(RESOURCE_PATH, "button05.png"),
     },
-    "data": {
-        "up": os.path.join(RESOURCE_PATH, "button_data_up.png"),
-        "down": os.path.join(RESOURCE_PATH, "button_data_down.png"),
+    "green": {
+        "up": os.path.join(RESOURCE_PATH, "button06.png"),
+        "down": os.path.join(RESOURCE_PATH, "button07.png"),
     },
-    "launch": {
-        "up": os.path.join(RESOURCE_PATH, "button_launch_up.png"),
-        "down": os.path.join(RESOURCE_PATH, "button_launch_down.png"),
+    "cyan": {
+        "up": os.path.join(RESOURCE_PATH, "button08.png"),
+        "down": os.path.join(RESOURCE_PATH, "button09.png"),
     },
-    "manual": {
-        "up": os.path.join(RESOURCE_PATH, "button_manual_up.png"),
-        "down": os.path.join(RESOURCE_PATH, "button_manual_down.png"),
+    "blue": {
+        "up": os.path.join(RESOURCE_PATH, "button10.png"),
+        "down": os.path.join(RESOURCE_PATH, "button11.png"),
     },
-    "map": {
-        "up": os.path.join(RESOURCE_PATH, "button_map_up.png"),
-        "down": os.path.join(RESOURCE_PATH, "button_map_down.png"),
+    "purple": {
+        "up": os.path.join(RESOURCE_PATH, "button12.png"),
+        "down": os.path.join(RESOURCE_PATH, "button13.png"),
     },
-    "media": {
-        "up": os.path.join(RESOURCE_PATH, "button_media_up.png"),
-        "down": os.path.join(RESOURCE_PATH, "button_media_down.png"),
-    },
+    "magenta": {
+        "up": os.path.join(RESOURCE_PATH, "button14.png"),
+        "down": os.path.join(RESOURCE_PATH, "button15.png"),
+    }
+}
+BUTTON_LABEL_ADJUST = {
+    "up": (0, -3),
+    "down": (0, 0)
 }
 IMAGE_FONT_PATHS = {
     "noctis": os.path.join(RESOURCE_PATH, "font_noctis.png"),
