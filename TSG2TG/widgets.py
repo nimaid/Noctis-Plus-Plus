@@ -58,9 +58,9 @@ class ImageButton(QAbstractButton):
             pix = self.pixmap_hover
         else:
             pix = self.pixmap
-
-        painter = QPainter(self)
-        painter.drawPixmap(event.rect(), pix)
+        
+        with QPainter(self) as painter:
+            painter.drawPixmap(event.rect(), pix)
 
     def enterEvent(self, event):
         self.update()
@@ -147,8 +147,8 @@ class ImageLabel(QLabel):
         self.height = round(self.pixmap.height() * self.scale)
     
     def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.drawPixmap(event.rect(), self.pixmap)
+        with QPainter(self) as painter:
+            painter.drawPixmap(event.rect(), self.pixmap)
 
     def sizeHint(self):
         return QSize(self.width, self.height)
@@ -209,9 +209,8 @@ class ImageFontLabel(QLabel):
         
     
     def paintEvent(self, event):
-        painter = QPainter(self)
-        
-        painter.drawPixmap(0, 0, self.pixmap)
+        with QPainter(self) as painter:
+            painter.drawPixmap(0, 0, self.pixmap)
 
 
 # Custom seekbar class
