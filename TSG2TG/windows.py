@@ -40,7 +40,7 @@ class MyQMainWindow(QMainWindow):
         self.pixel_scale = 3
         
         # Setup TrueType fonts
-        ttf_height = 8 
+        ttf_height = 6 
         ttf_size = ttf_height* self.pixel_scale
         ttf_mono_id = QFontDatabase.addApplicationFont(constants.TRUETYPE_FONT_PATHS["microfont_mono"])
         ttf_mono_name = QFontDatabase.applicationFontFamilies(ttf_mono_id)[0]
